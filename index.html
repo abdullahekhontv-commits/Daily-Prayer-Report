@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B1F24">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>দৈনিক আমল</title>
+<style>
+:root{--bg:#EDF2F0;--sf:#fff;--ink:#10302B;--mut:#5E7873;--ln:#D8E3E0;--ac:#0F6B57;--ac2:#E3F1EC;--gold:#B98A2C;--s1:#0F6B57;--s2:#2B7FA6;--s3:#C98414;--s4:#C4475A;--sh:0 1px 2px rgba(16,48,43,.06),0 10px 24px -14px rgba(16,48,43,.25)}
+@media(prefers-color-scheme:dark){:root{--bg:#081619;--sf:#10262A;--ink:#E6F1EE;--mut:#8FA9A4;--ln:#1E3A3F;--ac:#3FC4A0;--ac2:#14342F;--gold:#E2B65A;--s1:#1E9C7F;--s2:#3A8DB8;--s3:#C98414;--s4:#C4475A;--sh:none}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;line-height:1.5}
+#app{max-width:520px;margin:0 auto;padding:env(safe-area-inset-top) 16px calc(88px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 0 10px}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700}
+.brand img{width:34px;height:34px;border-radius:10px}
+.hr{display:flex;align-items:center;gap:10px}
+.sync{font-size:12px;color:var(--mut);display:flex;align-items:center;gap:6px}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--mut)}
+.sync.ok i{background:var(--s1)}.sync.busy i{background:var(--gold)}.sync.err i{background:var(--s4)}
+.av{width:36px;height:36px;border-radius:50%;border:0;color:#fff;font-weight:700;font-size:16px;font-family:inherit}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:20px;padding:16px;margin-bottom:12px;box-shadow:var(--sh)}
+.card h2{margin:0 0 4px;font-size:17px}
+.card p{margin:0 0 12px;color:var(--mut);font-size:14px}
+.dn{display:flex;align-items:center;justify-content:space-between;margin:4px 0 12px}
+.dn b{font-size:16px}.dn small{display:block;color:var(--mut);font-weight:400;text-align:center}
+.dn button{width:40px;height:40px;border-radius:12px;border:1px solid var(--ln);background:var(--sf);color:var(--ink);font-size:20px}
+.dn button:disabled{opacity:.35}
+.hero{display:flex;align-items:center;gap:18px;background:linear-gradient(150deg,#0E3B36,#081F24);color:#E6F1EE;border:0}
+.hero svg{flex:none}.hero .n{font-size:30px;font-weight:700;line-height:1.1}
+.hero .m{color:#9DC0B8;font-size:14px}.hero .g{color:#E2B65A;font-weight:700}
+.pr{padding:14px}
+.pr .t{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;font-size:17px}
+.pr .t span{font-size:13px;font-weight:400;color:var(--mut)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg button{border:1px solid var(--ln);background:transparent;color:var(--ink);border-radius:12px;padding:9px 0;font-weight:600;font-size:14px;font-family:inherit}
+.seg button.on{color:#fff;border-color:transparent}
+.s1.on{background:var(--s1)}.s2.on{background:var(--s2)}.s3.on{background:var(--s3)}.s4.on{background:var(--s4)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--ln);background:transparent;color:var(--ink);border-radius:999px;padding:9px 16px;font-weight:600;font-size:14px;font-family:inherit}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.stat{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:12px;text-align:center}
+.stat b{display:block;font-size:24px;color:var(--ac)}.stat span{font-size:12px;color:var(--mut)}
+.bars{display:flex;align-items:flex-end;justify-content:space-between;height:130px;gap:8px}
+.bars div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:12px;color:var(--mut)}
+.bars i{display:block;width:100%;border-radius:8px 8px 4px 4px;background:var(--ac);min-height:4px;margin-bottom:6px}
+.heat{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.heat i{aspect-ratio:1;border-radius:8px;background:var(--ln)}
+.row{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--ln)}
+.row:first-of-type{border-top:0}.row .av{width:40px;height:40px;flex:none}.row .nm{flex:1;font-weight:600}
+.row .nm small{display:block;color:var(--mut);font-weight:400}
+.btn{border:0;background:var(--ac);color:#fff;border-radius:14px;padding:12px 18px;font-weight:700;font-size:15px;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--ac);border:1px solid var(--ln)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:10px}
+.btn.red{background:transparent;color:var(--s4);border:1px solid var(--ln)}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+input{width:100%;border:1px solid var(--ln);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px;font-size:15px;font-family:inherit;margin-bottom:10px}
+label{display:block;font-size:13px;color:var(--mut);margin-bottom:4px}
+.hint{font-size:13px;color:var(--mut);margin:0 0 12px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--sf);border-top:1px solid var(--ln);padding:6px 12px calc(6px + env(safe-area-inset-bottom))}
+nav div{max-width:520px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr)}
+nav button{border:0;background:none;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px;font-weight:600;font-size:12px;font-family:inherit}
+nav button.on{color:var(--ac)}nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%}
+#toast.show{opacity:1}
+button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast"></div>
+<input type="file" id="file" accept="application/json,.json" hidden>
+<script>
+const PR=[['fajr','ফজর'],['dhuhr','যোহর'],['asr','আসর'],['maghrib','মাগরিব'],['isha','ইশা']];
+const ST=[[1,'জামাতে'],[2,'একা'],[3,'কাযা'],[4,'মিস']];
+const EX=[['witr','বিতর'],['duha','চাশত'],['quran','কুরআন তিলাওয়াত'],['dhikr','যিকির'],['dua','দুআ'],['sadaqa','সদকা']];
+const COL=['#0F6B57','#2B7FA6','#B5651D','#7A4FA3','#C4475A','#4C6B2F'];
+const IC={today:'<circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/>',stats:'<path d="M5 20V10M12 20V4M19 20v-7"/>',set:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>'};
+const $=s=>document.querySelector(s);
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
+let S=ld('dd_state',{v:1,accounts:[],active:null,del:[]}),CFG=ld('dd_cfg',{}),tab='today',day=new Date(),sy={st:'idle',msg:''},tm;
+const bn=n=>Number(n).toLocaleString('bn-BD');
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const acc=()=>S.accounts.find(a=>a.id===S.active);
+const full=e=>e&&PR.every(([i])=>[1,2,3].includes(e.p[i]));
+const pts=e=>e?PR.reduce((s,[i])=>s+(e.p[i]<3&&e.p[i]>0?1:e.p[i]===3?.5:0),0)/5:0;
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600)}
+function save(skip){localStorage.setItem('dd_state',JSON.stringify(S));if(!skip&&CFG.t){clearTimeout(tm);setSt('busy');tm=setTimeout(doSync,2500)}}
+function setSt(st,msg){sy={st,msg:msg||''};render()}
+function ent(a,k){return a.days[k]||(a.days[k]={p:{},x:{}})}
+function streak(a){let n=0,d=new Date();if(!full(a.days[ymd(d)]))d.setDate(d.getDate()-1);while(full(a.days[ymd(d)])){n++;d.setDate(d.getDate()-1)}return n}
+
+/* ---- GitHub sync ---- */
+const api=()=>`https://api.github.com/repos/${CFG.o}/${CFG.r}/contents/${CFG.p||'dd-data.json'}`;
+const hd=()=>({Authorization:'Bearer '+CFG.t,Accept:'application/vnd.github+json'});
+const enc=s=>btoa(unescape(encodeURIComponent(s)));
+const dec=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
+function merge(r){
+  if(!r||!r.accounts)return;
+  S.del=[...new Set([...(S.del||[]),...(r.del||[])])];
+  for(const ra of r.accounts){
+    if(S.del.includes(ra.id))continue;
+    const a=S.accounts.find(x=>x.id===ra.id);
+    if(!a){S.accounts.push(ra);continue}
+    if((ra.u||0)>(a.u||0)){a.name=ra.name;a.u=ra.u}
+    for(const k in ra.days){const l=a.days[k];if(!l||(ra.days[k].t||0)>(l.t||0))a.days[k]=ra.days[k]}
+  }
+  S.accounts=S.accounts.filter(a=>!S.del.includes(a.id));
+  if(!acc())S.active=S.accounts[0]?S.accounts[0].id:null;
+}
+async function doSync(){
+  if(!CFG.t||!CFG.o||!CFG.r)return;
+  setSt('busy');
+  try{
+    for(let i=0;i<2;i++){
+      const g=await fetch(api(),{headers:hd(),cache:'no-store'});
+      let sha;
+      if(g.status===200){const j=await g.json();sha=j.sha;merge(JSON.parse(dec(j.content)))}
+      else if(g.status!==404)throw new Error(g.status===401?'টোকেন ভুল বা মেয়াদ শেষ':g.status===404?'':'GitHub ত্রুটি '+g.status);
+      const p=await fetch(api(),{method:'PUT',headers:{...hd(),'Content-Type':'application/json'},body:JSON.stringify({message:'sync '+new Date().toISOString(),content:enc(JSON.stringify(S)),sha})});
+      if(p.ok){save(true);sy={st:'ok',msg:new Date().toLocaleTimeString('bn-BD',{hour:'2-digit',minute:'2-digit'})};render();return}
+      if(p.status!==409&&p.status!==422)throw new Error(p.status===403||p.status===404?'রিপো বা অনুমতি সঠিক নয়':'GitHub ত্রুটি '+p.status);
+    }
+    throw new Error('দ্বন্দ্ব হয়েছে, আবার চেষ্টা করুন');
+  }catch(e){setSt('err',e.message==='Failed to fetch'?'ইন্টারনেট নেই':e.message)}
+}
+
+/* ---- views ---- */
+function vToday(a){
+  if(!a)return `<div class="card"><h2>স্বাগতম</h2><p>শুরু করতে একটি অ্যাকাউন্ট খুলুন। আগের ডেটা থাকলে GitHub বা ব্যাকআপ ফাইল থেকে ফিরিয়ে আনুন।</p><button class="btn" data-a="tab" data-v="set">সেটিংসে যান</button></div>`;
+  const k=ymd(day),e=a.days[k]||{p:{},x:{}},isT=k===ymd(new Date());
+  const done=PR.filter(([i])=>[1,2,3].includes(e.p[i])).length,ex=EX.filter(([i])=>e.x[i]).length,C=2*Math.PI*48;
+  const dl=new Intl.DateTimeFormat('bn-BD',{weekday:'long',day:'numeric',month:'long'}).format(day);
+  return `<div class="dn"><button data-a="nav" data-d="-1" aria-label="আগের দিন">‹</button><b>${dl}<small>${isT?'আজ':''}</small></b><button data-a="nav" data-d="1" aria-label="পরের দিন" ${isT?'disabled':''}>›</button></div>
+  <div class="card hero"><svg width="112" height="112" viewBox="0 0 112 112"><circle cx="56" cy="56" r="48" fill="none" stroke="#ffffff22" stroke-width="9"/><circle cx="56" cy="56" r="48" fill="none" stroke="#E2B65A" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C*pts(e)} ${C}" transform="rotate(-90 56 56)"/><text x="56" y="64" text-anchor="middle" fill="#fff" font-size="26" font-weight="700">${bn(done)}/${bn(5)}</text></svg>
+  <div><div class="n">${bn(done)} ওয়াক্ত</div><div class="m">${done===5?'আলহামদুলিল্লাহ, সব ওয়াক্ত সম্পন্ন':'বাকি '+bn(5-done)+' ওয়াক্ত'}</div><div class="m"><span class="g">${bn(streak(a))} দিন</span> ধারাবাহিক · বাড়তি আমল ${bn(ex)}/${bn(EX.length)}</div></div></div>
+  ${PR.map(([id,nm])=>`<div class="card pr"><div class="t">${nm}<span>${e.p[id]?ST.find(s=>s[0]===e.p[id])[1]:'বাকি'}</span></div><div class="seg">${ST.map(([s,l])=>`<button class="s${s}${e.p[id]===s?' on':''}" data-a="p" data-p="${id}" data-s="${s}">${l}</button>`).join('')}</div></div>`).join('')}
+  <div class="card"><h2>বাড়তি আমল</h2><p>যেগুলো করেছেন, সেগুলো ছুঁয়ে দিন।</p><div class="chips">${EX.map(([id,nm])=>`<button class="chip${e.x[id]?' on':''}" data-a="x" data-x="${id}">${nm}</button>`).join('')}</div></div>`;
+}
+function vStats(a){
+  if(!a)return `<div class="card"><p>পরিসংখ্যান দেখতে আগে একটি অ্যাকাউন্ট খুলুন।</p></div>`;
+  const D=n=>{const d=new Date();d.setDate(d.getDate()-n);return d};
+  let jm=0,tot=0;for(let i=0;i<30;i++){const e=a.days[ymd(D(i))];if(e)PR.forEach(([id])=>{if(e.p[id]===1)jm++;if([1,2,3].includes(e.p[id]))tot++})}
+  const wd=new Intl.DateTimeFormat('bn-BD',{weekday:'short'});
+  return `<div class="stats"><div class="stat"><b>${bn(streak(a))}</b><span>দিন ধারাবাহিক</span></div><div class="stat"><b>${bn(jm)}</b><span>জামাতে (৩০ দিন)</span></div><div class="stat"><b>${bn(Math.round(tot/150*100))}%</b><span>পালন (৩০ দিন)</span></div></div>
+  <div class="card"><h2>গত ৭ দিন</h2><p>প্রতিদিনের নামাজ পালনের হার</p><div class="bars">${[6,5,4,3,2,1,0].map(n=>{const d=D(n),s=pts(a.days[ymd(d)]);return `<div><i style="height:${Math.max(3,s*100)}%;opacity:${s?1:.25}"></i>${wd.format(d)}</div>`}).join('')}</div></div>
+  <div class="card"><h2>গত ৩৫ দিন</h2><p>গাঢ় রঙ মানে বেশি ওয়াক্ত পালন</p><div class="heat">${Array.from({length:35},(_,i)=>{const s=pts(a.days[ymd(D(34-i))]);return `<i style="${s?`background:var(--ac);opacity:${.25+.75*s}`:''}"></i>`}).join('')}</div></div>`;
+}
+function vSet(){
+  const c=CFG;
+  return `<div class="card"><h2>অ্যাকাউন্ট</h2><p>একই অ্যাপে একাধিক ব্যক্তি আলাদা অ্যাকাউন্টে ব্যবহার করতে পারবেন।</p>
+  ${S.accounts.map(a=>`<div class="row"><button class="av" style="background:${a.c}" data-a="pick" data-id="${a.id}">${esc(a.name[0])}</button><div class="nm">${esc(a.name)}<small>${a.id===S.active?'চালু আছে':''}</small></div>${a.id===S.active?'':`<button class="btn sm ghost" data-a="pick" data-id="${a.id}">বদলান</button>`}<button class="btn sm red" data-a="del" data-id="${a.id}">মুছুন</button></div>`).join('')}
+  <div style="margin-top:12px"><label for="nn">নতুন অ্যাকাউন্টের নাম</label><input id="nn" maxlength="30" placeholder="যেমন: আব্বু"><button class="btn" data-a="add">অ্যাকাউন্ট খুলুন</button></div></div>
+  <div class="card"><h2>GitHub সিঙ্ক</h2><p>ডেটা আপনার GitHub রিপোতে জমা থাকবে। ব্রাউজারের ক্যাশ মুছলেও ডেটা হারাবে না।</p>
+  <label for="go">GitHub ইউজারনেম</label><input id="go" value="${esc(c.o||'')}" autocapitalize="off" autocomplete="off">
+  <label for="gr">ডেটা রিপোর নাম</label><input id="gr" value="${esc(c.r||'')}" autocapitalize="off" autocomplete="off">
+  <label for="gp">ফাইলের নাম</label><input id="gp" value="${esc(c.p||'dd-data.json')}" autocapitalize="off" autocomplete="off">
+  <label for="gt">অ্যাক্সেস টোকেন</label><input id="gt" type="password" value="${esc(c.t||'')}" autocomplete="off">
+  <p class="hint">ডেটার জন্য আলাদা একটি প্রাইভেট রিপো বানান। Fine-grained টোকেনে শুধু ওই রিপো বেছে নিয়ে Contents: Read and write অনুমতি দিন।</p>
+  <div class="btns"><button class="btn" data-a="cfg">সংযুক্ত করে সিঙ্ক করুন</button>${c.t?`<button class="btn ghost" data-a="sync">এখনই সিঙ্ক</button><button class="btn red" data-a="unlink">বিচ্ছিন্ন করুন</button>`:''}</div></div>
+  <div class="card"><h2>ব্যাকআপ</h2><p>ফাইল ডাউনলোড করে রাখুন, প্রয়োজনে ফিরিয়ে আনুন। আপলোড করা ডেটা বর্তমান ডেটার সাথে মিলে যায়, কিছু মুছে যায় না।</p><div class="btns"><button class="btn" data-a="dl">ব্যাকআপ ডাউনলোড</button><button class="btn ghost" data-a="up">ব্যাকআপ আপলোড</button></div></div>`;
+}
+function render(){
+  const a=acc(),sl={ok:'সিঙ্ক হয়েছে '+sy.msg,busy:'সিঙ্ক হচ্ছে…',err:sy.msg||'সিঙ্ক ব্যর্থ',idle:'সংযুক্ত'};
+  const T=[['today','আজ'],['stats','পরিসংখ্যান'],['set','সেটিংস']];
+  $('#app').innerHTML=`<header><div class="brand"><img src="icon-192.png" alt="">দৈনিক আমল</div><div class="hr">${CFG.t?`<span class="sync ${sy.st}"><i></i>${sl[sy.st]}</span>`:''}${a?`<button class="av" style="background:${a.c}" data-a="tab" data-v="set" aria-label="অ্যাকাউন্ট">${esc(a.name[0])}</button>`:''}</div></header>
+  ${tab==='today'?vToday(a):tab==='stats'?vStats(a):vSet()}
+  <nav><div>${T.map(([k,l])=>`<button class="${tab===k?'on':''}" data-a="tab" data-v="${k}"><svg viewBox="0 0 24 24">${IC[k]}</svg>${l}</button>`).join('')}</div></nav>`;
+}
+
+/* ---- actions ---- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a]');if(!t)return;
+  const a=acc(),d=t.dataset,v=id=>document.getElementById(id).value.trim();
+  switch(d.a){
+    case 'tab':tab=d.v;window.scrollTo(0,0);break;
+    case 'nav':{const n=new Date(day);n.setDate(n.getDate()+Number(d.d));if(n<=new Date())day=n;break}
+    case 'p':{const x=ent(a,ymd(day));x.p[d.p]=x.p[d.p]===+d.s?0:+d.s;x.t=Date.now();save();break}
+    case 'x':{const x=ent(a,ymd(day));x.x[d.x]=x.x[d.x]?0:1;x.t=Date.now();save();break}
+    case 'pick':S.active=d.id;save();toast('অ্যাকাউন্ট বদলানো হয়েছে');break;
+    case 'add':{const n=v('nn');if(!n){toast('নাম লিখুন');return}
+      const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+      S.accounts.push({id,name:n,c:COL[S.accounts.length%COL.length],u:Date.now(),days:{}});S.active=id;save();toast('অ্যাকাউন্ট খোলা হয়েছে');break}
+    case 'del':{const x=S.accounts.find(z=>z.id===d.id);
+      if(!confirm('"'+x.name+'" অ্যাকাউন্ট ও এর সব তথ্য মুছে যাবে। নিশ্চিত?'))return;
+      S.del=[...(S.del||[]),x.id];S.accounts=S.accounts.filter(z=>z.id!==x.id);if(!acc())S.active=S.accounts[0]?S.accounts[0].id:null;save();break}
+    case 'cfg':CFG={o:v('go'),r:v('gr'),p:v('gp')||'dd-data.json',t:v('gt')};
+      if(!CFG.o||!CFG.r||!CFG.t){toast('সব ঘর পূরণ করুন');CFG={};return}
+      localStorage.setItem('dd_cfg',JSON.stringify(CFG));doSync();break;
+    case 'sync':doSync();return;
+    case 'unlink':CFG={};localStorage.removeItem('dd_cfg');sy={st:'idle',msg:''};toast('GitHub সংযোগ বিচ্ছিন্ন');break;
+    case 'dl':{const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),l=document.createElement('a');
+      l.href=URL.createObjectURL(b);l.download='daily-deeds-'+ymd(new Date())+'.json';l.click();setTimeout(()=>URL.revokeObjectURL(l.href),1000);toast('ব্যাকআপ ডাউনলোড হচ্ছে');return}
+    case 'up':$('#file').click();return;
+  }
+  render();
+});
+$('#file').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{try{const j=JSON.parse(r.result);if(!j.accounts)throw 0;merge(j);save();render();toast('ব্যাকআপ ফিরিয়ে আনা হয়েছে')}catch(x){toast('ফাইলটি সঠিক ব্যাকআপ নয়')}};
+  r.readAsText(f);e.target.value='';
+});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&CFG.t)doSync()});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
+render();if(CFG.t)doSync();
+</script>
+</body>
+</html>
