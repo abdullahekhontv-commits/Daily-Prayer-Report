@@ -88,6 +88,24 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-off
 .lockb{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px}
 .seg button.au{opacity:.6}button:disabled{opacity:.45}.lk{border:0;background:none;color:var(--ac);padding:0;font-family:inherit;font-size:13px;font-weight:600}
 #toast.act{pointer-events:auto}#toast button{margin-left:8px;border:0;background:none;color:var(--gold);font-family:inherit;font-weight:700;font-size:inherit}
+.ch{display:flex;justify-content:space-between;align-items:center;gap:10px}.ch h2{margin:0}.card.ch{padding:14px 16px}
+.cw b{font-size:19px}.wl{margin-top:4px}.wr{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--ln)}.wr:first-child{border-top:0}
+.wr>i{width:5px;align-self:stretch;border-radius:3px;flex:none}.wn{flex:1}.wn b{display:block}.wn small{color:var(--mut);font-size:13px}
+.wr.cur{background:var(--ac2);margin:0 -10px;padding:11px 10px;border-radius:14px;border-top-color:transparent}
+.mp{height:5px;border-radius:3px;background:var(--ln);margin-top:7px;overflow:hidden}.mp u{display:block;height:100%;border-radius:3px}
+.pill{font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px;background:var(--ln);color:var(--mut)}
+.pill.p1{background:var(--s1);color:#fff}.pill.p2{background:var(--s2);color:#fff}.pill.p3{background:var(--s3);color:#fff}.pill.p4{background:var(--s4);color:#fff}
+.fl{margin-top:14px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,#EF4D63 10%,transparent)}.fl h3{margin:0 0 6px;font-size:14px;color:var(--s4)}
+.fl div{display:flex;justify-content:space-between;gap:8px;font-size:14px;padding:3px 0}.fl span{color:var(--mut)}
+.c1{color:var(--s1)}.c2{color:var(--s2)}.c3{color:var(--s3)}.c4{color:var(--s4)}
+.pp>div.sb{margin-bottom:0}.ps{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:flex-end;font-size:12px;color:var(--mut)}.ps b{color:var(--ink)}.ps .dot{margin-right:4px}
+.pr{border-left:4px solid var(--ln)}.pr.st1{border-left-color:var(--s1)}.pr.st2{border-left-color:var(--s2)}.pr.st3{border-left-color:var(--s3)}.pr.st4{border-left-color:var(--s4)}
+.lgd{margin-right:10px;white-space:nowrap}.hero .dot{margin-right:4px}
+.endb{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:var(--ink);font-family:inherit;font-size:15px;padding:14px 16px}.endb b{flex:1}.endb small{color:var(--mut);font-size:13px}.endb .dot{margin-right:3px}
+.ib{width:36px;height:36px;border-radius:50%;border:1px solid var(--ln);background:var(--sf);color:var(--mut);display:grid;place-items:center;padding:0}.ib svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mb{background:var(--gold);color:#241a00;border-radius:99px;padding:2px 9px;font-size:11px;font-weight:700;vertical-align:middle}
+.gt{text-align:center;padding:48px 0 24px}.gt img{width:84px;height:84px;border-radius:22px}.gt h1{font-size:24px;margin:12px 0 18px}.gt .card{text-align:left}.gt>.btn{margin-top:4px}
+.row.ac{width:100%;background:none;border:0;border-top:1px solid var(--ln);color:var(--ink);font-family:inherit;font-size:16px;text-align:left;padding:12px 0}.row span.av{display:grid;place-items:center;color:#fff;font-weight:700;border-radius:50%}
 </style>
 </head>
 <body>
@@ -99,14 +117,14 @@ const PR=[['fajr','ফজর'],['dhuhr','যোহর'],['asr','আসর'],['ma
 const ST=[[1,'জামাতে'],[2,'একা'],[3,'কাযা'],[4,'মিস']];
 const EX=[['witr','বিতর'],['duha','চাশত'],['quran','কুরআন তিলাওয়াত'],['dhikr','যিকির'],['dua','দুআ'],['sadaqa','সদকা']];
 const COL=['#0F6B57','#2B7FA6','#B5651D','#7A4FA3','#C4475A','#4C6B2F'];
-const IC={dash:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>',today:'<circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/>',stats:'<path d="M5 20V10M12 20V4M19 20v-7"/>',set:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>'};
+const IC={out:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',dash:'<circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>',today:'<circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/>',stats:'<path d="M5 20V10M12 20V4M19 20v-7"/>',set:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>'};
 const $=s=>document.querySelector(s);
 const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
-let S=ld('dd_state',{v:1,accounts:[],active:null,del:[]}),CFG=ld('dd_cfg',{}),tab='dash',per=7,mo=0,edit=false,ng='m',TC={},day=new Date(),sy={st:'idle',msg:''},tm;
+let S=ld('dd_state',{v:1,accounts:[],active:null,del:[]}),CFG=ld('dd_cfg',{}),SESS=ld('dd_sess',{}),gs={t:'main'},showSync=false,showEnded=false,tab='dash',per=7,mo=0,edit=false,ng='m',TC={},day=new Date(),sy={st:'idle',msg:''},tm;
 const bn=n=>Number(n).toLocaleString('bn-BD');
 const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const acc=()=>S.accounts.find(a=>a.id===S.active);
+const acc=()=>S.accounts.find(a=>a.id===(SESS.m?S.active:SESS.id));
 const full=e=>e&&PR.every(([i])=>[1,2,3].includes(e.p[i]));
 const pts=e=>e?PR.reduce((s,[i])=>s+(e.p[i]<3&&e.p[i]>0?1:e.p[i]===3?.5:0),0)/5:0;
 function toast(m,u){const t=$('#toast');t.textContent=m+' ';t.classList.toggle('act',!!u);
@@ -124,12 +142,13 @@ const enc=s=>btoa(unescape(encodeURIComponent(s)));
 const dec=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
 function merge(r){
   if(!r||!r.accounts)return;
+  if(r.master&&(!S.master||(r.master.u||0)>(S.master.u||0)))S.master=r.master;
   S.del=[...new Set([...(S.del||[]),...(r.del||[])])];
   for(const ra of r.accounts){
     if(S.del.includes(ra.id))continue;
     const a=S.accounts.find(x=>x.id===ra.id);
     if(!a){S.accounts.push(ra);continue}
-    if((ra.u||0)>(a.u||0)){a.name=ra.name;a.g=ra.g;a.u=ra.u}
+    if((ra.u||0)>(a.u||0)){a.name=ra.name;a.g=ra.g;a.pin=ra.pin;a.u=ra.u}
     for(const k in ra.days){const l=a.days[k];if(!l||(ra.days[k].t||0)>(l.t||0))a.days[k]=ra.days[k]}
   }
   S.accounts=S.accounts.filter(a=>!S.del.includes(a.id));
@@ -183,45 +202,59 @@ const tt=c=>c[1]+c[2]+c[3]+c[4],pc=(c,s)=>tt(c)?Math.round(c[s]/tt(c)*100):0;
 const bar=c=>`<div class="sb">${[1,2,3,4].map(s=>c[s]?`<i class="s${s}" style="flex:${c[s]}"></i>`:'').join('')}</div>`;
 function moon(x,y,r){const p=fx((Date.now()/864e5+2440587.5-2451550.1)/29.530588,1),k=Math.cos(2*Math.PI*p),w=p<.5,rx=Math.abs(k)*r;
   return `<circle cx="${x}" cy="${y}" r="${r}" fill="#26404a"/><path d="M${x} ${y-r}A${r} ${r} 0 0 ${w?1:0} ${x} ${y+r}A${rx} ${r} 0 0 ${w?(k>0?0:1):(k>0?1:0)} ${x} ${y-r}Z" fill="#F3E9C6"/>`}
-function arc(now,T,FB){
-  const day=now>=T.sr&&now<T.ss;let A,B,S2,C2;
-  if(day){A=T.sr;B=T.ss;S2=[[T.sr,T.dh,''],[T.dh,T.as,'যোহর'],[T.as,T.ss,'আসর']];C2=['#7F9C96','#3FC4A0','#5AB0DC']}
-  else{const E=now<T.sr?ptm(-1):T,M=now<T.sr?T:ptm(1);A=E.ss;B=M.sr;S2=[[E.ss,E.is,'মাগরিব'],[E.is,M.fj,'ইশা'],[M.fj,M.sr,'ফজর']];C2=['#E2B65A','#8E9BF0','#3FC4A0']}
-  const f=t=>Math.min(1,Math.max(0,(t-A)/(B-A))),P=(q,k=1)=>[(160-130*k*Math.cos(Math.PI*q)).toFixed(1),(172-120*k*Math.sin(Math.PI*q)).toFixed(1)];
-  const pa=(t1,t2)=>{const a=P(f(t1)),b=P(f(t2));return `M${a[0]} ${a[1]}A130 120 0 0 1 ${b[0]} ${b[1]}`};
-  let s=`<svg viewBox="0 0 320 200" role="img" aria-label="সূর্য ও চাঁদের অবস্থান"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${day?'#1E6B78':'#0A1030'}"/><stop offset="1" stop-color="${day?'#0B2A33':'#04070F'}"/></linearGradient></defs><rect width="320" height="200" fill="url(#sk)"/>`;
+const WC={fajr:'#7B8CDE',dhuhr:'#F2C14E',asr:'#F0914B',maghrib:'#B26BD6',isha:'#3FA0D8','':'#7F9C96'},RED='#EF4D63',SC=['#ffffff22','#34D3A8','#4DB4E8','#F0A93B','#EF6A80'];
+const dr=ms=>{const m=Math.round(ms/MN);return(m>=60?bn(Math.floor(m/60))+' ঘণ্টা ':'')+(m%60?bn(m%60)+' মিনিট':'')};
+const fbs=T=>[[+T.sr,+T.sr+15*MN,'সূর্যোদয়'],[+T.dh-6*MN,+T.dh,'দুপুর (যাওয়াল)'],[+T.ss-15*MN,+T.ss,'সূর্যাস্ত']];
+function arc(now,T,sg,FB){
+  const day=now>=T.sr&&now<T.ss;let A,B,S2;
+  if(day){A=T.sr;B=T.ss;S2=[[T.sr,T.dh,'',''],[T.dh,T.as,'যোহর','dhuhr'],[T.as,T.ss,'আসর','asr']]}
+  else{const E=now<T.sr?ptm(-1):T,M=now<T.sr?T:ptm(1);A=E.ss;B=M.sr;S2=[[E.ss,E.is,'মাগরিব','maghrib'],[E.is,M.fj,'ইশা','isha'],[M.fj,M.sr,'ফজর','fajr']]}
+  const f=t=>Math.min(1,Math.max(0,(t-A)/(B-A))),P=(q,k=1)=>[+(160-130*k*Math.cos(Math.PI*q)).toFixed(1),+(172-120*k*Math.sin(Math.PI*q)).toFixed(1)],d=(B-A)*.003;
+  const pa=(t1,t2)=>{const a=P(f(t1)),b=P(f(t2));return `M${a[0]} ${a[1]}A130 120 0 0 1 ${b[0]} ${b[1]}`},gc=day?'#F5C95C':'#F3E9C6';
+  let s=`<svg viewBox="0 0 320 226" role="img" aria-label="সূর্য ও চাঁদের অবস্থান"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${day?'#1E6B78':'#0A1030'}"/><stop offset="1" stop-color="${day?'#0B2A33':'#04070F'}"/></linearGradient><radialGradient id="gl"><stop offset="0" stop-color="${gc}" stop-opacity=".55"/><stop offset="1" stop-color="${gc}" stop-opacity="0"/></radialGradient></defs><rect width="320" height="226" fill="url(#sk)"/>`;
   if(!day)s+=[[40,30],[90,60],[250,25],[285,70],[130,22],[210,50],[60,100],[270,110]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="1.2" fill="#fff" opacity=".7"/>`).join('');
-  s+=`<line x1="20" y1="172" x2="300" y2="172" stroke="#ffffff33"/>`;
-  S2.forEach((g,i)=>s+=`<path d="${pa(g[0],g[1])}" fill="none" stroke="${C2[i]}" stroke-width="9"/>`);
-  if(day)FB.forEach(x=>s+=`<path d="${pa(x[0],x[1])}" fill="none" stroke="#E5586D" stroke-width="9"/>`);
-  [...S2.map(g=>g[0]),S2[2][1]].forEach(t=>{const p=P(f(t)),l=P(f(t),.74);s+=`<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="#fff"/><text x="${l[0]}" y="${+l[1]+3}" text-anchor="middle" font-size="10" fill="#cfe3de">${fm(t)}</text>`});
+  s+=`<path d="M30 172A130 120 0 0 1 290 172" fill="none" stroke="#ffffff14" stroke-width="13" stroke-linecap="round"/><line x1="14" y1="172" x2="306" y2="172" stroke="#ffffff22"/>`;
+  S2.forEach(g=>{const c=WC[g[3]];s+=`<path d="${pa(+g[0]+d,+g[1]-d)}" fill="none" stroke="${c}" stroke-width="9" opacity=".32"/>`;if(now>+g[0]+2*d)s+=`<path d="${pa(+g[0]+d,Math.min(now,+g[1])-d)}" fill="none" stroke="${c}" stroke-width="9"/>`});
+  if(day)FB.forEach(x=>s+=`<path d="${pa(x[0],x[1])}" fill="none" stroke="${RED}" stroke-width="9" opacity=".95"/>`);
+  [...S2.map(g=>g[0]),S2[2][1]].forEach(t=>{const p=P(f(t)),l=P(f(t),.74);s+=`<circle cx="${p[0]}" cy="${p[1]}" r="2.5" fill="#fff"/><text x="${l[0]}" y="${l[1]+3}" text-anchor="middle" font-size="10" fill="#cfe3de">${fm(t)}</text>`});
   S2.forEach(g=>{if(!g[2])return;const l=P(f((+g[0]+ +g[1])/2),.5);s+=`<text x="${l[0]}" y="${l[1]}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${g[2]}</text>`});
-  const c=P(f(now));s+=day?`<circle cx="${c[0]}" cy="${c[1]}" r="20" fill="#E2B65A" opacity=".25"/><circle cx="${c[0]}" cy="${c[1]}" r="10" fill="#F5C95C"/>`:moon(+c[0],+c[1],11);
+  const c=P(f(now));s+=`<circle cx="${c[0]}" cy="${c[1]}" r="26" fill="url(#gl)"/>`+(day?`<circle cx="${c[0]}" cy="${c[1]}" r="10" fill="#F5C95C"/>`:moon(c[0],c[1],11));
+  if(sg[0]!==undefined){const id=sg[0],s0=+sg[1],e0=+sg[2],x=t=>30+260*Math.min(1,Math.max(0,(t-s0)/(e0-s0))),pr=x(now);
+    s+=`<rect x="30" y="190" width="260" height="8" rx="4" fill="#ffffff1f"/><rect x="30" y="190" width="${(pr-30).toFixed(1)}" height="8" rx="4" fill="${WC[id]}"/>`;
+    FB.forEach(z=>{if(z[1]>s0&&z[0]<e0){const a=x(z[0]),b=x(z[1]);s+=`<rect x="${a.toFixed(1)}" y="188" width="${Math.max(2,b-a).toFixed(1)}" height="12" rx="3" fill="${RED}"/>`}});
+    s+=`<circle cx="${pr.toFixed(1)}" cy="194" r="6" fill="#fff" stroke="${WC[id]}" stroke-width="3"/><text x="30" y="217" font-size="11" fill="#cfe3de">${fm(new Date(s0))}</text><text x="290" y="217" text-anchor="end" font-size="11" fill="#cfe3de">${fm(new Date(e0))}</text><text x="160" y="217" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${id?PN[id]:'বিরতি'} · ${bn(Math.round((pr-30)/260*100))}%</text>`}
+  return s+'</svg>'}
+function dayStrip(now,T,N,FB){const R0=+T.fj,R1=+N.fj,x=t=>(320*(t-R0)/(R1-R0)).toFixed(1),W=[['fajr',T.fj,T.sr],['dhuhr',T.dh,T.as],['asr',T.as,T.ss],['maghrib',T.ss,T.is],['isha',T.is,N.fj]];
+  let s=`<svg viewBox="0 0 320 34" style="width:100%;display:block;margin:2px 0 6px" role="img" aria-label="দিনের ওয়াক্ত রেখা"><rect y="11" width="320" height="12" rx="6" fill="var(--ln)"/>`;
+  W.forEach(w=>s+=`<rect x="${x(w[1])}" y="11" width="${(x(w[2])-x(w[1])).toFixed(1)}" height="12" rx="3" fill="${WC[w[0]]}"/>`);
+  FB.forEach(z=>s+=`<rect x="${x(z[0])}" y="8" width="${Math.max(2,x(z[1])-x(z[0])).toFixed(1)}" height="18" rx="2" fill="${RED}"/>`);
+  if(now>=R0&&now<R1)s+=`<line x1="${x(now)}" x2="${x(now)}" y1="2" y2="32" stroke-width="2.5" stroke-linecap="round" style="stroke:var(--ink)"/>`;
   return s+'</svg>'}
 function vDash(a){
-  const now=new Date(),T=ptm(0),N=ptm(1),sg=segs().find(x=>now>=x[1]&&now<x[2])||[];
-  const FB=[[T.sr,new Date(+T.sr+15*MN),'সূর্যোদয়'],[new Date(+T.dh-6*MN),T.dh,'দুপুর (যাওয়াল)'],[new Date(+T.ss-15*MN),T.ss,'সূর্যাস্ত']];
-  const fb=FB.find(f=>now>=f[0]&&now<f[1]),left=sg[0]?Math.max(0,Math.round((sg[2]-now)/MN)):0;
-  const W=[['fajr',T.fj,T.sr],['dhuhr',T.dh,T.as],['asr',T.as,T.ss],['maghrib',T.ss,T.is],['isha',T.is,N.fj]];
-  let h=`<div class="card sky">${arc(now,T,FB)}<div class="cw"><b>${sg[0]?GN[sg[0]]+' ওয়াক্ত চলছে':'এখন ফরজ নামাজের ওয়াক্ত নেই'}</b><span>${sg[0]?'শেষ হতে '+bn(Math.floor(left/60))+' ঘণ্টা '+bn(left%60)+' মিনিট বাকি':'যোহর শুরু '+fm(T.dh)}</span>${fb?`<em>এখন নামাজের নিষিদ্ধ সময় · ${fb[2]} · ${fm(fb[1])} পর্যন্ত</em>`:''}</div></div>
-  <div class="card"><h2>আজকের ওয়াক্ত</h2><div class="tt">${W.map(w=>`<div class="${sg[0]===w[0]?'cur':''}"><b>${PN[w[0]]}</b><span>${fm(w[1])} – ${fm(w[2])}</span></div>`).join('')}</div><h2 class="rd">নিষিদ্ধ সময় (আনুমানিক)</h2><div class="tt fb">${FB.map(f=>`<div><b>${f[2]}</b><span>${fm(f[0])} – ${fm(f[1])}</span></div>`).join('')}</div></div>`;
+  const now=new Date(),T=ptm(0),N=ptm(1),sg=segs().find(x=>now>=x[1]&&now<x[2])||[],FB=fbs(T),fb=FB.find(f=>now>=f[0]&&now<f[1]),k=ymd(now);
+  const left=sg[0]!==undefined?Math.max(0,Math.round((sg[2]-now)/MN)):0,W=[['fajr',T.fj,T.sr],['dhuhr',T.dh,T.as],['asr',T.as,T.ss],['maghrib',T.ss,T.is],['isha',T.is,N.fj]];
+  let h=`<div class="card sky">${arc(now,T,sg,FB)}<div class="cw"><b>${sg[0]?GN[sg[0]]+' ওয়াক্ত চলছে':'এখন ফরজ নামাজের ওয়াক্ত নেই'}</b><span>${sg[0]?'শেষ হতে '+dr(left*MN)+' বাকি':'যোহর শুরু '+fm(T.dh)}</span>${fb?`<em>এখন নামাজের নিষিদ্ধ সময় · ${fb[2]} · ${fm(new Date(fb[1]))} পর্যন্ত</em>`:''}</div></div>
+  <div class="card"><h2>আজকের ওয়াক্ত</h2>${dayStrip(now,T,N,FB)}<div class="wl">${W.map(([id,s0,e0])=>{const cur=sg[0]===id,v=a?eff(a,k,id):0;return `<div class="wr${cur?' cur':''}"><i style="background:${WC[id]}"></i><div class="wn"><b>${PN[id]}</b><small>${fm(s0)} – ${fm(e0)} · ${dr(e0-s0)}</small>${cur?`<div class="mp"><u style="width:${Math.round((now-s0)/(e0-s0)*100)}%;background:${WC[id]}"></u></div>`:''}</div>${a?`<span class="pill p${v}">${v?SL(a,v):'বাকি'}</span>`:''}</div>`}).join('')}</div>
+  <div class="fl"><h3>নিষিদ্ধ সময় (আনুমানিক)</h3>${FB.map(f=>`<div><b>${f[2]}</b><span>${fm(new Date(f[0]))} – ${fm(new Date(f[1]))} · ${dr(f[1]-f[0])}</span></div>`).join('')}</div></div>`;
   if(!a)return h;
   const R=tally(a,per),SS=a.g==='f'?[2,3,4]:[1,2,3,4],O=[0,1,2,3,4].map(s=>PR.reduce((t,[i])=>t+R[i][s],0));
   return h+`<div class="card"><div class="chips pd">${[[7,'সপ্তাহ'],[30,'মাস'],[365,'বছর'],[0,'সর্বমোট']].map(([n,l])=>`<button class="chip${per===n?' on':''}" data-a="per" data-n="${n}">${l}</button>`).join('')}</div>
-  <div class="tiles">${SS.map(s=>`<div class="tl"><i class="dot s${s}"></i><b>${bn(pc(O,s))}%</b><span>${SL(a,s)}</span></div>`).join('')}</div>${bar(O)}</div>
-  <div class="card"><h2>ওয়াক্তভিত্তিক হার</h2>${PR.map(([i,n])=>`<div class="pp"><div><b>${n}</b><small>${SS.map(s=>SL(a,s)+' '+bn(pc(R[i],s))+'%').join(' · ')}</small></div>${bar(R[i])}</div>`).join('')}</div>`}
+  <div class="tiles">${SS.map(s=>`<div class="tl"><b class="c${s}">${bn(pc(O,s))}%</b><span>${SL(a,s)}</span></div>`).join('')}</div>${bar(O)}</div>
+  <div class="card"><h2>ওয়াক্তভিত্তিক হার</h2>${PR.map(([i,n])=>`<div class="pp"><div><b>${n}</b><span class="ps">${SS.map(s=>`<span><i class="dot s${s}"></i>${SL(a,s)} <b>${bn(pc(R[i],s))}%</b></span>`).join('')}</span></div>${bar(R[i])}</div>`).join('')}</div>`}
 function vToday(a){
-  if(!a)return `<div class="card"><h2>স্বাগতম</h2><p>শুরু করতে একটি অ্যাকাউন্ট খুলুন। আগের ডেটা থাকলে GitHub বা ব্যাকআপ ফাইল থেকে ফিরিয়ে আনুন।</p><button class="btn" data-a="tab" data-v="set">সেটিংসে যান</button></div>`;
+  if(!a)return `<div class="card"><h2>স্বাগতম</h2><p>শুরু করতে মাস্টার দিয়ে প্রবেশ করে একটি অ্যাকাউন্ট খুলুন।</p><button class="btn" data-a="tab" data-v="set">সেটিংসে যান</button></div>`;
   const k=ymd(day),isT=k===ymd(new Date()),e=a.days[k]||{p:{},x:{}},SS=a.g==='f'?[2,3,4]:[1,2,3,4],lock=!isT&&!edit;
   const T=isT?ptm(0):0,N=isT?ptm(1):0,RG=isT?{fajr:[T.fj,T.sr],dhuhr:[T.dh,T.as],asr:[T.as,T.ss],maghrib:[T.ss,T.is],isha:[T.is,N.fj]}:{};
-  const st=id=>eff(a,k,id),done=PR.filter(([i])=>[1,2,3].includes(st(i))).length,ex=EX.filter(([i])=>e.x[i]).length,C=2*Math.PI*48;
-  const sc=PR.reduce((t,[i])=>t+(st(i)>0&&st(i)<3?1:st(i)===3?.5:0),0)/5;
+  const st=id=>eff(a,k,id),done=PR.filter(([i])=>[1,2,3].includes(st(i))).length,ex=EX.filter(([i])=>e.x[i]).length,C=2*Math.PI*48,L=C/5-7;
   const dl=new Intl.DateTimeFormat('bn-BD',{weekday:'long',day:'numeric',month:'long'}).format(day);
+  const ring=PR.map(([i],n)=>`<circle cx="56" cy="56" r="48" fill="none" stroke="${SC[st(i)]}" stroke-width="9" stroke-dasharray="${L.toFixed(1)} ${(C-L).toFixed(1)}" stroke-dashoffset="${(-(n*C/5+3.5)).toFixed(1)}" transform="rotate(-90 56 56)"/>`).join('');
+  const card=([id,nm])=>{const v=st(id),au=v===4&&!e.p[id];return `<div class="card pr st${v}"><div class="t">${nm}<span>${RG[id]?fm(RG[id][0])+' – '+fm(RG[id][1]):au?'স্বয়ংক্রিয় মিস':''}</span></div><div class="seg" style="grid-template-columns:repeat(${SS.length},1fr)">${SS.map(s=>`<button class="s${s}${v===s?' on':''}${v===s&&au?' au':''}" ${lock?'disabled':''} data-a="p" data-p="${id}" data-s="${s}">${SL(a,s)}</button>`).join('')}</div></div>`};
+  const ed=isT?PR.filter(([i])=>ended(k,i)):[],lv=PR.filter(p=>!ed.includes(p));
   return `<div class="dn"><button data-a="nav" data-d="-1" aria-label="আগের দিন">‹</button><b>${dl}<small>${isT?'আজ':''}</small></b><button data-a="nav" data-d="1" aria-label="পরের দিন" ${isT?'disabled':''}>›</button></div>
   ${isT?'':`<div class="card lockb"><span>${edit?'সম্পাদনা চালু আছে':'এই দিনের তথ্য লক করা আছে'}</span><button class="btn sm ${edit?'':'ghost'}" data-a="edit">${edit?'লক করুন':'সম্পাদনা চালু করুন'}</button></div>`}
-  <div class="card hero"><svg width="112" height="112" viewBox="0 0 112 112"><circle cx="56" cy="56" r="48" fill="none" stroke="#ffffff22" stroke-width="9"/><circle cx="56" cy="56" r="48" fill="none" stroke="#E2B65A" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C*sc} ${C}" transform="rotate(-90 56 56)"/><text x="56" y="64" text-anchor="middle" fill="#fff" font-size="26" font-weight="700">${bn(done)}/${bn(5)}</text></svg>
-  <div><div class="n">${bn(done)} ওয়াক্ত</div><div class="m">${done===5?'আলহামদুলিল্লাহ, সব ওয়াক্ত সম্পন্ন':'পালিত ওয়াক্ত'}</div><div class="m">বাড়তি আমল ${bn(ex)}/${bn(EX.length)}</div></div></div>
-  ${PR.map(([id,nm])=>{const v=st(id),au=v===4&&!e.p[id];return `<div class="card pr"><div class="t">${nm}<span>${RG[id]?fm(RG[id][0])+' – '+fm(RG[id][1]):au?'স্বয়ংক্রিয় মিস':''}</span></div><div class="seg" style="grid-template-columns:repeat(${SS.length},1fr)">${SS.map(s=>`<button class="s${s}${v===s?' on':''}${v===s&&au?' au':''}" ${lock?'disabled':''} data-a="p" data-p="${id}" data-s="${s}">${SL(a,s)}</button>`).join('')}</div></div>`}).join('')}
+  <div class="card hero"><svg width="112" height="112" viewBox="0 0 112 112">${ring}<text x="56" y="64" text-anchor="middle" fill="#fff" font-size="26" font-weight="700">${bn(done)}/${bn(5)}</text></svg>
+  <div><div class="n">${bn(done)} ওয়াক্ত</div><div class="m">${done===5?'আলহামদুলিল্লাহ, সব ওয়াক্ত সম্পন্ন':'পালিত ওয়াক্ত'}</div><div class="m">${[1,2,3,4].map(s=>{const n=PR.filter(([i])=>st(i)===s).length;return n?`<span class="lgd"><i class="dot s${s}"></i>${SL(a,s)} ${bn(n)}</span>`:''}).join('')}</div><div class="m">বাড়তি আমল ${bn(ex)}/${bn(EX.length)}</div></div></div>
+  ${ed.length?`<button class="card endb" data-a="ended"><span>${ed.map(([i])=>`<i class="dot s${st(i)}"></i>`).join('')}</span><b>শেষ হওয়া ${bn(ed.length)} ওয়াক্ত</b><small>${showEnded?'লুকান ▴':'দেখুন ▾'}</small></button>`:''}${showEnded?ed.map(card).join(''):''}${lv.map(card).join('')}
   <div class="card"><h2>বাড়তি আমল</h2><p>যেগুলো করেছেন, সেগুলো ছুঁয়ে দিন।</p><div class="chips">${EX.map(([id,nm])=>`<button class="chip${e.x[id]?' on':''}" ${lock?'disabled':''} data-a="x" data-x="${id}">${nm}</button>`).join('')}</div></div>`;
 }
 function vStats(a){
@@ -232,25 +265,44 @@ function vStats(a){
   return `<div class="dn"><button data-a="mo" data-d="-1" aria-label="আগের মাস">‹</button><b>${new Intl.DateTimeFormat('bn-BD',{month:'long',year:'numeric'}).format(m)}</b><button data-a="mo" data-d="1" ${mo>=0?'disabled':''} aria-label="পরের মাস">›</button></div>
   <div class="card"><div class="lg">${lg}</div><div class="dr hd"><span></span>${PR.map(([,nm])=>`<small>${nm}</small>`).join('')}</div>${rows||'<p>এই মাসে কোনো তথ্য নেই।</p>'}</div>`;
 }
-function vSet(){
-  const c=CFG;
-  return `<div class="card"><h2>অ্যাকাউন্ট</h2><p>একই অ্যাপে একাধিক ব্যক্তি আলাদা অ্যাকাউন্টে ব্যবহার করতে পারবেন।</p>
-  ${S.accounts.map(a=>`<div class="row"><button class="av" style="background:${a.c}" data-a="pick" data-id="${a.id}">${esc(a.name[0])}</button><div class="nm">${esc(a.name)}<small><button class="lk" data-a="gen" data-id="${a.id}">${a.g==='f'?'মহিলা':'পুরুষ'} ⇄</button>${a.id===S.active?' · চালু আছে':''}</small></div>${a.id===S.active?'':`<button class="btn sm ghost" data-a="pick" data-id="${a.id}">বদলান</button>`}<button class="btn sm red" data-a="del" data-id="${a.id}">মুছুন</button></div>`).join('')}
-  <div style="margin-top:12px"><label for="nn">নতুন অ্যাকাউন্টের নাম</label><input id="nn" maxlength="30" placeholder="যেমন: আব্বু"><div class="chips" style="margin-bottom:12px"><button class="chip${ng==='m'?' on':''}" data-a="ng" data-g="m">পুরুষ</button><button class="chip${ng==='f'?' on':''}" data-a="ng" data-g="f">মহিলা</button></div><button class="btn" data-a="add">অ্যাকাউন্ট খুলুন</button></div></div>
-  <div class="card"><h2>GitHub সিঙ্ক</h2><p>ডেটা আপনার GitHub রিপোতে জমা থাকবে। ব্রাউজারের ক্যাশ মুছলেও ডেটা হারাবে না।</p>
+function vSync(open){const c=CFG,o=open||showSync;return o?`<div class="card"><div class="ch"><h2>GitHub সিঙ্ক</h2>${open?'':'<button class="btn sm ghost" data-a="ssync">লুকান</button>'}</div><p>ডেটা আপনার GitHub রিপোতে জমা থাকবে। ব্রাউজারের ক্যাশ মুছলেও ডেটা হারাবে না।</p>
   <label for="go">GitHub ইউজারনেম</label><input id="go" value="${esc(c.o||'')}" autocapitalize="off" autocomplete="off">
   <label for="gr">ডেটা রিপোর নাম</label><input id="gr" value="${esc(c.r||'')}" autocapitalize="off" autocomplete="off">
   <label for="gp">ফাইলের নাম</label><input id="gp" value="${esc(c.p||'dd-data.json')}" autocapitalize="off" autocomplete="off">
   <label for="gt">অ্যাক্সেস টোকেন</label><input id="gt" type="password" value="${esc(c.t||'')}" autocomplete="off">
   <p class="hint">ডেটার জন্য আলাদা একটি প্রাইভেট রিপো বানান। Fine-grained টোকেনে শুধু ওই রিপো বেছে নিয়ে Contents: Read and write অনুমতি দিন।</p>
-  <div class="btns"><button class="btn" data-a="cfg">সংযুক্ত করে সিঙ্ক করুন</button>${c.t?`<button class="btn ghost" data-a="sync">এখনই সিঙ্ক</button><button class="btn red" data-a="unlink">বিচ্ছিন্ন করুন</button>`:''}</div></div>
-  <div class="card"><h2>অবস্থান</h2><p>ওয়াক্তের সময় হিসাব হয় এই অবস্থান ধরে: ${c.la?bn(c.la)+', '+bn(c.ln):'সাভার, ঢাকা (ডিফল্ট)'}। হিসাব: ফজর ও ইশা ১৮°, আসর হানাফি।</p><button class="btn ghost" data-a="loc">আমার অবস্থান ব্যবহার করুন</button></div>
-  <div class="card"><h2>ব্যাকআপ</h2><p>ফাইল ডাউনলোড করে রাখুন, প্রয়োজনে ফিরিয়ে আনুন। আপলোড করা ডেটা বর্তমান ডেটার সাথে মিলে যায়, কিছু মুছে যায় না।</p><div class="btns"><button class="btn" data-a="dl">ব্যাকআপ ডাউনলোড</button><button class="btn ghost" data-a="up">ব্যাকআপ আপলোড</button></div></div>`;
-}
+  <div class="btns"><button class="btn" data-a="cfg">সংযুক্ত করে সিঙ্ক করুন</button>${c.t?`<button class="btn ghost" data-a="sync">এখনই সিঙ্ক</button><button class="btn red" data-a="unlink">বিচ্ছিন্ন করুন</button>`:''}</div></div>`:`<div class="card ch"><h2>GitHub সিঙ্ক</h2><button class="btn sm ghost" data-a="ssync">দেখান</button></div>`}
+function vLoc(){const c=CFG;return `<div class="card"><h2>অবস্থান</h2><p>ওয়াক্তের সময় হিসাব হয় এই অবস্থান ধরে: ${c.la?bn(c.la)+', '+bn(c.ln):'সাভার, ঢাকা (ডিফল্ট)'}। হিসাব: ফজর ও ইশা ১৮°, আসর হানাফি।</p><button class="btn ghost" data-a="loc">আমার অবস্থান ব্যবহার করুন</button></div>`}
+function vBackup(){return `<div class="card"><h2>ব্যাকআপ</h2><p>ফাইল ডাউনলোড করে রাখুন, প্রয়োজনে ফিরিয়ে আনুন। আপলোড করা ডেটা বর্তমান ডেটার সাথে মিলে যায়, কিছু মুছে যায় না।</p><div class="btns"><button class="btn" data-a="dl">ব্যাকআপ ডাউনলোড</button><button class="btn ghost" data-a="up">ব্যাকআপ আপলোড</button></div></div>`}
+const gb=x=>`<button class="lk" data-a="gen" data-id="${x.id}">${x.g==='f'?'মহিলা':'পুরুষ'} ⇄</button> · <button class="lk" data-a="pin" data-id="${x.id}">${x.pin?'পিন বদল':'পিন দিন'}</button>`;
+function vSet(){
+  const a=acc(),m=SESS.m,nm=S.accounts.filter(x=>x.g!=='f').length;let h='';
+  if(m)h+=`<div class="card"><h2>মাস্টার প্যানেল</h2><p>সব অ্যাকাউন্ট এখান থেকে দেখা ও পরিচালনা করা যায়।</p><div class="tiles"><div class="tl"><b>${bn(S.accounts.length)}</b><span>মোট অ্যাকাউন্ট</span></div><div class="tl"><b>${bn(nm)}</b><span>পুরুষ</span></div><div class="tl"><b>${bn(S.accounts.length-nm)}</b><span>মহিলা</span></div></div>
+  ${S.accounts.map(x=>`<div class="row"><button class="av" style="background:${x.c}" data-a="pick" data-id="${x.id}">${esc(x.name[0])}</button><div class="nm">${esc(x.name)}<small>${gb(x)}${x.id===S.active?' · দেখছেন':''}</small></div>${x.id===S.active?'':`<button class="btn sm ghost" data-a="pick" data-id="${x.id}">দেখুন</button>`}<button class="btn sm red" data-a="del" data-id="${x.id}">মুছুন</button></div>`).join('')}
+  <div style="margin-top:14px"><label for="nn">নতুন অ্যাকাউন্টের নাম</label><input id="nn" maxlength="30" placeholder="নাম লিখুন"><div class="chips" style="margin-bottom:12px"><button class="chip${ng==='m'?' on':''}" data-a="ng" data-g="m">পুরুষ</button><button class="chip${ng==='f'?' on':''}" data-a="ng" data-g="f">মহিলা</button></div><button class="btn" data-a="add">অ্যাকাউন্ট খুলুন</button> <button class="btn ghost" data-a="mpin">মাস্টার পিন বদলান</button></div></div>`;
+  else if(a)h+=`<div class="card"><h2>আমার অ্যাকাউন্ট</h2><div class="row"><span class="av" style="background:${a.c}">${esc(a.name[0])}</span><div class="nm">${esc(a.name)}<small>${gb(a)}</small></div></div></div>`;
+  h+=vLoc();if(m)h+=vSync(false)+vBackup();
+  return h+`<div class="card"><button class="btn red" data-a="out">লগআউট</button></div>`}
+const H=async(p,z)=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(z+':'+p)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const sess=o=>{SESS=o;localStorage.setItem('dd_sess',JSON.stringify(o));gs={t:'main'};tab='dash';render()};
+async function doLogin(){const p=$('#lp').value;let ok;
+  if(gs.id==='m')ok=await H(p,'master')===S.master.pin;else{const x=S.accounts.find(z=>z.id===gs.id);ok=!!x&&await H(p,x.id)===x.pin}
+  ok?sess(gs.id==='m'?{m:1}:{id:gs.id}):toast('পিন ভুল')}
+async function mkMaster(){const p=$('#mp1').value;if(p.length<4){toast('কমপক্ষে ৪ অক্ষরের পিন দিন');return}if(p!==$('#mp2').value){toast('দুটো পিন মেলেনি');return}
+  S.master={pin:await H(p,'master'),u:Date.now()};save();sess({m:1})}
+const authed=()=>S.master&&(SESS.m||acc());
+function gate(){
+  let b;
+  if(gs.t==='restore')b=`<div style="text-align:left">${vSync(true)}${vBackup()}</div><button class="btn ghost" data-a="gate" data-t="main">ফিরে যান</button>`;
+  else if(!S.master)b=`<div class="card"><h2>মাস্টার অ্যাকাউন্ট তৈরি করুন</h2><p>মাস্টার সব অ্যাকাউন্ট দেখতে ও পরিচালনা করতে পারবে। একটি পিন দিন (কমপক্ষে ৪ অক্ষর)।</p><input id="mp1" type="password" inputmode="numeric" placeholder="পিন"><input id="mp2" type="password" inputmode="numeric" placeholder="আবার পিন"><button class="btn" data-a="mk">তৈরি করুন</button></div><button class="btn ghost" data-a="gate" data-t="restore">আগের ডেটা ফিরিয়ে আনুন</button>`;
+  else if(gs.t==='pin'){const x=S.accounts.find(z=>z.id===gs.id);b=`<div class="card"><h2>${gs.id==='m'?'মাস্টার লগইন':esc(x?x.name:'')}</h2><input id="lp" type="password" inputmode="numeric" placeholder="পিন"><div class="btns"><button class="btn" data-a="lgin">প্রবেশ</button><button class="btn ghost" data-a="gate" data-t="main">ফিরে যান</button></div></div>`}
+  else b=`<div class="card"><h2>কে প্রবেশ করবেন?</h2>${S.accounts.map(x=>`<button class="row ac" data-a="acct" data-id="${x.id}"><span class="av" style="background:${x.c}">${esc(x.name[0])}</span><span class="nm">${esc(x.name)}${x.pin?'<small>পিন দিয়ে সুরক্ষিত</small>':''}</span>›</button>`).join('')||'<p>কোনো অ্যাকাউন্ট নেই। মাস্টার দিয়ে প্রবেশ করে অ্যাকাউন্ট খুলুন।</p>'}</div><button class="btn ghost" data-a="gate" data-t="pin" data-id="m">মাস্টার লগইন</button>`;
+  $('#app').innerHTML=`<div class="gt"><img src="icon-192.png" alt=""><h1>দৈনিক আমল</h1>${b}</div>`}
 function render(){
+  if(!authed())return gate();
   const a=acc(),sl={ok:'সিঙ্ক হয়েছে '+sy.msg,busy:'সিঙ্ক হচ্ছে…',err:sy.msg||'সিঙ্ক ব্যর্থ',idle:'সংযুক্ত'};
   const T=[['dash','ড্যাশবোর্ড'],['today','আজ'],['stats','পরিসংখ্যান'],['set','সেটিংস']];
-  $('#app').innerHTML=`<header><div class="brand"><img src="icon-192.png" alt="">দৈনিক আমল</div><div class="hr">${CFG.t?`<span class="sync ${sy.st}"><i></i>${sl[sy.st]}</span>`:''}${a?`<button class="av" style="background:${a.c}" data-a="tab" data-v="set" aria-label="অ্যাকাউন্ট">${esc(a.name[0])}</button>`:''}</div></header>
+  $('#app').innerHTML=`<header><div class="brand"><img src="icon-192.png" alt="">দৈনিক আমল${SESS.m?' <span class="mb">মাস্টার</span>':''}</div><div class="hr">${CFG.t?`<span class="sync ${sy.st}"><i></i>${sl[sy.st]}</span>`:''}${a?`<button class="av" style="background:${a.c}" data-a="tab" data-v="set" aria-label="অ্যাকাউন্ট">${esc(a.name[0])}</button>`:''}<button class="ib" data-a="out" aria-label="লগআউট"><svg viewBox="0 0 24 24">${IC.out}</svg></button></div></header>
   ${tab==='dash'?vDash(a):tab==='today'?vToday(a):tab==='stats'?vStats(a):vSet()}
   <nav><div>${T.map(([k,l])=>`<button class="${tab===k?'on':''}" data-a="tab" data-v="${k}"><svg viewBox="0 0 24 24">${IC[k]}</svg>${l}</button>`).join('')}</div></nav>`;
 }
@@ -288,6 +340,18 @@ document.addEventListener('click',e=>{
       localStorage.setItem('dd_cfg',JSON.stringify(CFG));doSync();break;
     case 'sync':doSync();return;
     case 'unlink':CFG={la:CFG.la,ln:CFG.ln};localStorage.setItem('dd_cfg',JSON.stringify(CFG));sy={st:'idle',msg:''};toast('GitHub সংযোগ বিচ্ছিন্ন');break;
+    case 'out':SESS={};localStorage.setItem('dd_sess','{}');gs={t:'main'};tab='dash';edit=false;break;
+    case 'gate':gs={t:d.t,id:d.id};break;
+    case 'acct':{const x=S.accounts.find(z=>z.id===d.id);if(x.pin)gs={t:'pin',id:x.id};else{sess({id:x.id});return}break}
+    case 'lgin':doLogin();return;
+    case 'mk':mkMaster();return;
+    case 'ssync':showSync=!showSync;break;
+    case 'ended':showEnded=!showEnded;break;
+    case 'pin':{const x=S.accounts.find(z=>z.id===d.id),p=prompt('নতুন পিন (কমপক্ষে ৪ অক্ষর)। ফাঁকা রাখলে পিন সরে যাবে।');if(p===null)return;
+      if(p&&p.length<4){toast('কমপক্ষে ৪ অক্ষর দিন');return}
+      H(p,x.id).then(h=>{x.pin=p?h:'';x.u=Date.now();save();render();toast(p?'পিন সেট হয়েছে':'পিন সরানো হয়েছে')});return}
+    case 'mpin':{const p=prompt('নতুন মাস্টার পিন (কমপক্ষে ৪ অক্ষর)');if(!p)return;if(p.length<4){toast('কমপক্ষে ৪ অক্ষর দিন');return}
+      H(p,'master').then(h=>{S.master={pin:h,u:Date.now()};save();toast('মাস্টার পিন বদলানো হয়েছে')});return}
     case 'dl':{const b=new Blob([JSON.stringify(S,null,1)],{type:'application/json'}),l=document.createElement('a');
       l.href=URL.createObjectURL(b);l.download='daily-deeds-'+ymd(new Date())+'.json';l.click();setTimeout(()=>URL.revokeObjectURL(l.href),1000);toast('ব্যাকআপ ডাউনলোড হচ্ছে');return}
     case 'up':$('#file').click();return;
@@ -304,7 +368,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&CFG.t)doS
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
 render();if(CFG.t)doSync();
-setInterval(()=>{if(tab!=='set'&&!document.hidden)render()},60000);
+setInterval(()=>{if(tab!=='set'&&authed()&&!document.hidden)render()},60000);
 </script>
 </body>
 </html>
