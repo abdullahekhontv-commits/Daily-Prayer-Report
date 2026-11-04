@@ -113,8 +113,8 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-off
 .row.ac{width:100%;background:none;border:0;border-top:1px solid var(--ln);color:var(--ink);font-family:inherit;font-size:16px;text-align:left;padding:12px 0}.row span.av{display:grid;place-items:center;color:#fff;font-weight:700;border-radius:50%}
 
 /* Animations */
-@keyframes floatCloud { 0%{transform:translateX(0)} 100%{transform:translateX(-30px)} }
-@keyframes waveAnim { 0%{transform:translateX(0)} 100%{transform:translateX(-40px)} }
+@keyframes floatCloud { 0%{transform:translateX(0)} 100%{transform:translateX(-40px)} }
+@keyframes waveAnim { 0%{transform:translateX(0)} 100%{transform:translateX(-50px)} }
 @keyframes starBlink { 0%,100%{opacity:.2} 50%{opacity:1} }
 @keyframes sunGlow { 0%,100%{opacity:.4; transform:scale(1)} 50%{opacity:.7; transform:scale(1.1)} }
 </style>
@@ -257,9 +257,9 @@ function arc(now,T,sg,FB){
   // নক্ষত্র
   if(!day) s+=[[40,30],[90,60],[250,25],[285,70],[130,22],[210,50],[60,100],[270,110],[15,80],[300,90]].map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="1.2" fill="#fff" style="animation:starBlink ${2+i*0.3}s ease-in-out infinite"/>`).join('');
   
-  // মেঘ (Animation ঠিক করা হয়েছে)
+  // মেঘ (Animation ঠিক করা হয়েছে - ৬ সেকেন্ড)
   const clCol = day ? '#ffffff30' : '#ffffff10';
-  s+=`<g style="animation:floatCloud 15s linear infinite alternate">
+  s+=`<g style="animation:floatCloud 6s linear infinite alternate">
     <path d="M40 60 Q60 40 80 60 Q100 50 120 65 Q80 65 40 60" fill="${clCol}"/>
     <path d="M220 50 Q240 30 260 50 Q280 40 300 55 Q260 55 220 50" fill="${clCol}"/>
   </g>`;
@@ -272,13 +272,10 @@ function arc(now,T,sg,FB){
   
   // গাছ (বাস্তবিক ডালপালা ও পাতা)
   s+=`<g fill="${day?'#1B4A22':'#051208'}">
-    <!-- Tree 1 -->
     <rect x="25" y="145" width="4" height="27" fill="${day?'#4A3525':'#1A1005'}"/>
     <path d="M15 145 Q27 120 39 145 Z"/><path d="M20 135 Q27 115 34 135 Z"/>
-    <!-- Tree 2 -->
     <rect x="285" y="150" width="3" height="22" fill="${day?'#4A3525':'#1A1005'}"/>
     <path d="M278 150 Q286 130 294 150 Z"/><path d="M282 140 Q286 125 290 140 Z"/>
-    <!-- Bushes (leaves) -->
     <path d="M70 172 Q60 160 80 165 Q90 155 100 170 Z" opacity=".8"/>
     <path d="M250 172 Q240 165 260 160 Q270 165 280 172 Z" opacity=".8"/>
   </g>`;
