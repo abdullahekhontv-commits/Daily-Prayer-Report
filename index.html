@@ -20,6 +20,7 @@ header{display:flex;align-items:center;justify-content:space-between;padding:14p
 .brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700}
 .brand img{width:34px;height:34px;border-radius:10px}
 .hr{display:flex;align-items:center;gap:10px}
+.uname{font-size:14px;font-weight:700;color:var(--ac);max-width:90px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;vertical-align:middle;margin-left:4px}
 .sync{font-size:12px;color:var(--mut);display:flex;align-items:center;gap:6px}
 .sync i{width:8px;height:8px;border-radius:50%;background:var(--mut)}
 .sync.ok i{background:var(--s1)}.sync.busy i{background:var(--gold)}.sync.err i{background:var(--s4)}
@@ -70,7 +71,7 @@ nav button.on{color:var(--ac)}nav svg{width:24px;height:24px;fill:none;stroke:cu
 #toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%}
 #toast.show{opacity:1}
 button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
-.sky{padding:0;overflow:hidden;border:0;background:#0B2A33;color:#E6F1EE}.sky svg{display:block;width:100%}
+.sky{padding:0;overflow:hidden;border:0;color:#fff;transition:background 2s ease}.sky svg{display:block;width:100%}
 .cw{padding:6px 18px 18px;display:flex;flex-direction:column;gap:2px}.cw b{font-size:18px}.cw span{color:#9DC0B8;font-size:14px}
 .cw em{font-style:normal;margin-top:8px;background:#C4475A;color:#fff;border-radius:10px;padding:6px 12px;font-size:13px;font-weight:600}
 .tt div{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid var(--ln)}.tt div:first-child{border-top:0}
@@ -203,36 +204,64 @@ function tally(a,n){
   return R}
 const tt=c=>c[1]+c[2]+c[3]+c[4],pc=(c,s)=>tt(c)?Math.round(c[s]/tt(c)*100):0;
 const bar=c=>`<div class="sb">${[1,2,3,4].map(s=>c[s]?`<i class="s${s}" style="flex:${c[s]}"></i>`:'').join('')}</div>`;
-function moon(x,y,r){const p=fx((Date.now()/864e5+2440587.5-2451550.1)/29.530588,1),k=Math.cos(2*Math.PI*p),w=p<.5,rx=Math.abs(k)*r;
-  return `<circle cx="${x}" cy="${y}" r="${r}" fill="#26404a"/><path d="M${x} ${y-r}A${r} ${r} 0 0 ${w?1:0} ${x} ${y+r}A${rx} ${r} 0 0 ${w?(k>0?0:1):(k>0?1:0)} ${x} ${y-r}Z" fill="#F3E9C6"/>`}
+
+// ডাইনামিক চাঁদ (Moon Phase)
+function moon(x,y,r){
+  const p=fx((Date.now()/864e5+2440587.5-2451550.1)/29.530588,1),k=Math.cos(2*Math.PI*p),w=p<.5,rx=Math.abs(k)*r;
+  return `<circle cx="${x}" cy="${y}" r="${r}" fill="#26404a"/><path d="M${x} ${y-r}A${r} ${r} 0 0 ${w?1:0} ${x} ${y+r}A${rx} ${r} 0 0 ${w?(k>0?0:1):(k>0?1:0)} ${x} ${y-r}Z" fill="#F3E9C6"/>`;
+}
+
 const WC={fajr:'#7B8CDE',dhuhr:'#F2C14E',asr:'#F0914B',maghrib:'#B26BD6',isha:'#3FA0D8','':'#7F9C96'},RED='#EF4D63',SC=['#ffffff22','#34D3A8','#4DB4E8','#F0A93B','#EF6A80'];
 const dr=ms=>{const m=Math.round(ms/MN);return(m>=60?bn(Math.floor(m/60))+' ঘণ্টা ':'')+(m%60?bn(m%60)+' মিনিট':'')};
 const fbs=T=>[[+T.sr,+T.sr+15*MN,'সূর্যোদয়'],[+T.dh-6*MN,+T.dh,'দুপুর (যাওয়াল)'],[+T.ss-15*MN,+T.ss,'সূর্যাস্ত']];
+
 function arc(now,T,sg,FB){
   const day=now>=T.sr&&now<T.ss;let A,B,S2;
   if(day){A=T.sr;B=T.ss;S2=[[T.sr,T.dh,'',''],[T.dh,T.as,'যোহর','dhuhr'],[T.as,T.ss,'আসর','asr']]}
   else{const E=now<T.sr?ptm(-1):T,M=now<T.sr?T:ptm(1);A=E.ss;B=M.sr;S2=[[E.ss,E.is,'মাগরিব','maghrib'],[E.is,M.fj,'ইশা','isha'],[M.fj,M.sr,'ফজর','fajr']]}
   const f=t=>Math.min(1,Math.max(0,(t-A)/(B-A))),P=(q,k=1)=>[+(160-130*k*Math.cos(Math.PI*q)).toFixed(1),+(172-120*k*Math.sin(Math.PI*q)).toFixed(1)],d=(B-A)*.003;
   const pa=(t1,t2)=>{const a=P(f(t1)),b=P(f(t2));return `M${a[0]} ${a[1]}A130 120 0 0 1 ${b[0]} ${b[1]}`},gc=day?'#F5C95C':'#F3E9C6';
-  let s=`<svg viewBox="0 0 320 226" role="img" aria-label="সূর্য ও চাঁদের অবস্থান"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${day?'#1E6B78':'#0A1030'}"/><stop offset="1" stop-color="${day?'#0B2A33':'#04070F'}"/></linearGradient><radialGradient id="gl"><stop offset="0" stop-color="${gc}" stop-opacity=".55"/><stop offset="1" stop-color="${gc}" stop-opacity="0"/></radialGradient></defs><rect width="320" height="226" fill="url(#sk)"/>`;
+  
+  // ডাইনামিক স্কাই কালার (ভোর, সকাল, দুপুর, বিকেল, সন্ধ্যা, রাত)
+  let sk1='#081619', sk2='#0B2A33';
+  const h=now.getHours()+now.getMinutes()/60;
+  if(h>=4 && h<6){ sk1='#4B225E'; sk2='#C96C54'; } // ভোর
+  else if(h>=6 && h<12){ sk1='#3D7EB0'; sk2='#9AD4E6'; } // সকাল
+  else if(h>=12 && h<15){ sk1='#2B719E'; sk2='#66BDE0'; } // দুপুর
+  else if(h>=15 && h<18){ sk1='#B87A3D'; sk2='#E8B56A'; } // বিকেল
+  else if(h>=18 && h<19.5){ sk1='#8F3B46'; sk2='#D57F69'; } // সন্ধ্যা
+  else if(!day){ sk1='#0A1030'; sk2='#04070F'; } // রাত
+
+  let s=`<svg viewBox="0 0 320 226" role="img" aria-label="সূর্য ও চাঁদের অবস্থান"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sk1}"/><stop offset="1" stop-color="${sk2}"/></linearGradient><radialGradient id="gl"><stop offset="0" stop-color="${gc}" stop-opacity=".55"/><stop offset="1" stop-color="${gc}" stop-opacity="0"/></radialGradient></defs><rect width="320" height="226" fill="url(#sk)"/>`;
+  
+  // নক্ষত্র (রাতে)
   if(!day)s+=[[40,30],[90,60],[250,25],[285,70],[130,22],[210,50],[60,100],[270,110]].map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="1.2" fill="#fff" opacity=".7"/>`).join('');
+  
   s+=`<path d="M30 172A130 120 0 0 1 290 172" fill="none" stroke="#ffffff14" stroke-width="13" stroke-linecap="round"/><line x1="14" y1="172" x2="306" y2="172" stroke="#ffffff22"/>`;
   S2.forEach(g=>{const c=WC[g[3]];s+=`<path d="${pa(+g[0]+d,+g[1]-d)}" fill="none" stroke="${c}" stroke-width="9" opacity=".32"/>`;if(now>+g[0]+2*d)s+=`<path d="${pa(+g[0]+d,Math.min(now,+g[1])-d)}" fill="none" stroke="${c}" stroke-width="9"/>`});
   if(day)FB.forEach(x=>s+=`<path d="${pa(x[0],x[1])}" fill="none" stroke="${RED}" stroke-width="9" opacity=".95"/>`);
   [...S2.map(g=>g[0]),S2[2][1]].forEach(t=>{const p=P(f(t)),l=P(f(t),.74);s+=`<circle cx="${p[0]}" cy="${p[1]}" r="2.5" fill="#fff"/><text x="${l[0]}" y="${l[1]+3}" text-anchor="middle" font-size="10" fill="#cfe3de">${fm(t)}</text>`});
   S2.forEach(g=>{if(!g[2])return;const l=P(f((+g[0]+ +g[1])/2),.5);s+=`<text x="${l[0]}" y="${l[1]}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${g[2]}</text>`});
   const c=P(f(now));s+=`<circle cx="${c[0]}" cy="${c[1]}" r="26" fill="url(#gl)"/>`+(day?`<circle cx="${c[0]}" cy="${c[1]}" r="10" fill="#F5C95C"/>`:moon(c[0],c[1],11));
-  if(sg[0]!==undefined){const id=sg[0],s0=+sg[1],e0=+sg[2],x=t=>30+260*Math.min(1,Math.max(0,(t-s0)/(e0-s0))),pr=x(now);
+  
+  // ৩ এবং ৪ নং ফিক্স: নামাজের সময়, শতকরা ও কত সময় বাকি একসাথে, এবং নিষিদ্ধ সময়ের লাল রেখা
+  if(sg[0]!==undefined){
+    const id=sg[0],s0=+sg[1],e0=+sg[2],x=t=>30+260*Math.min(1,Math.max(0,(t-s0)/(e0-s0))),pr=x(now);
+    const pct=Math.round((pr-30)/260*100);
+    const left=dr(Math.max(0,Math.round((e0-now)/MN)*MN)); // কত সময় বাকি
     s+=`<rect x="30" y="190" width="260" height="8" rx="4" fill="#ffffff1f"/><rect x="30" y="190" width="${(pr-30).toFixed(1)}" height="8" rx="4" fill="${WC[id]}"/>`;
+    // নিষিদ্ধ ওয়াক্ত
     FB.forEach(z=>{if(z[1]>s0&&z[0]<e0){const a=x(z[0]),b=x(z[1]);s+=`<rect x="${a.toFixed(1)}" y="188" width="${Math.max(2,b-a).toFixed(1)}" height="12" rx="3" fill="${RED}"/>`}});
-    s+=`<circle cx="${pr.toFixed(1)}" cy="194" r="6" fill="#fff" stroke="${WC[id]}" stroke-width="3"/><text x="30" y="217" font-size="11" fill="#cfe3de">${fm(new Date(s0))}</text><text x="290" y="217" text-anchor="end" font-size="11" fill="#cfe3de">${fm(new Date(e0))}</text><text x="160" y="217" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${id?PN[id]:'বিরতি'} · ${bn(Math.round((pr-30)/260*100))}%</text>`}
-  return s+'</svg>'}
-function dayStrip(now,T,N,FB){return ''; /* ৩ নং ফিক্স: কালার বার রিমুভ করা হয়েছে */ }
+    s+=`<circle cx="${pr.toFixed(1)}" cy="194" r="6" fill="#fff" stroke="${WC[id]}" stroke-width="3"/><text x="160" y="217" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${id?PN[id]:'বিরতি'} · ${bn(pct)}% · ${left} বাকি</text>`;
+  }
+  return s+'</svg>'
+}
+
 function vDash(a){
   const now=new Date(),T=ptm(0),N=ptm(1),sg=segs().find(x=>now>=x[1]&&now<x[2])||[],FB=fbs(T),fb=FB.find(f=>now>=f[0]&&now<f[1]),k=ymd(now);
-  const left=sg[0]!==undefined?Math.max(0,Math.round((sg[2]-now)/MN)):0,W=[['fajr',T.fj,T.sr],['dhuhr',T.dh,T.as],['asr',T.as,T.ss],['maghrib',T.ss,T.is],['isha',T.is,N.fj]];
-  let h=`<div class="card sky">${arc(now,T,sg,FB)}<div class="cw"><b>${sg[0]?GN[sg[0]]+' ওয়াক্ত চলছে':'এখন ফরজ নামাজের ওয়াক্ত নেই'}</b><span>${sg[0]?'শেষ হতে '+dr(left*MN)+' বাকি':'যোহর শুরু '+fm(T.dh)}</span>${fb?`<em>এখন নামাজের নিষিদ্ধ সময় · ${fb[2]} · ${fm(new Date(fb[1]))} পর্যন্ত</em>`:''}</div></div>
-  <div class="card"><h2>আজকের ওয়াক্ত</h2>${dayStrip(now,T,N,FB)}<div class="wl">${W.map(([id,s0,e0])=>{const cur=sg[0]===id,v=a?eff(a,k,id):0;return `<div class="wr${cur?' cur':''}"><i style="background:${WC[id]}"></i><div class="wn"><b>${PN[id]}</b><small>${fm(s0)} – ${fm(e0)} · ${dr(e0-s0)}</small>${cur?`<div class="mp"><u style="width:${Math.round((now-s0)/(e0-s0)*100)}%;background:${WC[id]}"></u></div>`:''}</div>${a?`<span class="pill p${v}">${v?SL(a,v):'বাকি'}</span>`:''}</div>`}).join('')}</div>
+  const W=[['fajr',T.fj,T.sr],['dhuhr',T.dh,T.as],['asr',T.as,T.ss],['maghrib',T.ss,T.is],['isha',T.is,N.fj]];
+  let h=`<div class="card sky">${arc(now,T,sg,FB)}<div class="cw"><b>${sg[0]?GN[sg[0]]+' ওয়াক্ত চলছে':'এখন ফরজ নামাজের ওয়াক্ত নেই'}</b>${fb?`<em>এখন নামাজের নিষিদ্ধ সময় · ${fb[2]} · ${fm(new Date(fb[1]))} পর্যন্ত</em>`:''}</div></div>
+  <div class="card"><h2>আজকের ওয়াক্ত</h2><div class="wl">${W.map(([id,s0,e0])=>{const cur=sg[0]===id,v=a?eff(a,k,id):0;return `<div class="wr${cur?' cur':''}"><i style="background:${WC[id]}"></i><div class="wn"><b>${PN[id]}</b><small>${fm(s0)} – ${fm(e0)} · ${dr(e0-s0)}</small>${cur?`<div class="mp"><u style="width:${Math.round((now-s0)/(e0-s0)*100)}%;background:${WC[id]}"></u></div>`:''}</div>${a?`<span class="pill p${v}">${v?SL(a,v):'বাকি'}</span>`:''}</div>`}).join('')}</div>
   <div class="fl"><h3>নিষিদ্ধ সময় (আনুমানিক)</h3>${FB.map(f=>`<div class="fl-row"><b>${f[2]}</b><span>${fm(new Date(f[0]))} – ${fm(new Date(f[1]))} · ${dr(f[1]-f[0])}</span></div>`).join('')}</div></div>`;
   if(!a)return h;
   const R=tally(a,per),SS=a.g==='f'?[2,3,4]:[1,2,3,4],O=[0,1,2,3,4].map(s=>PR.reduce((t,[i])=>t+R[i][s],0));
@@ -300,7 +329,9 @@ function render(){
   if(!authed())return gate();
   const a=acc(),sl={ok:'সিঙ্ক হয়েছে '+sy.msg,busy:'সিঙ্ক হচ্ছে…',err:sy.msg||'সিঙ্ক ব্যর্থ',idle:'সংযুক্ত'};
   const T=[['dash','ড্যাশবোর্ড'],['today','আজ'],['stats','পরিসংখ্যান'],['set','সেটিংস']];
-  $('#app').innerHTML=`<header><div class="brand"><img src="icon-192.png" alt="">দৈনিক আমল${SESS.m?' <span class="mb">মাস্টার</span>':''}</div><div class="hr">${CFG.t?`<span class="sync ${sy.st}"><i></i>${sl[sy.st]}</span>`:''}${a?`<button class="av" style="background:${a.c}" data-a="tab" data-v="set" aria-label="অ্যাকাউন্ট">${esc(a.name[0])}</button>`:''}<button class="ib" data-a="out" aria-label="লগআউট"><svg viewBox="0 0 24 24">${IC.out}</svg></button></div></header>
+  
+  // হেডারে নাম যুক্ত করা হলো
+  $('#app').innerHTML=`<header><div class="brand"><img src="icon-192.png" alt="">দৈনিক আমল${SESS.m?' <span class="mb">মাস্টার</span>':''}${a?` <span class="uname">(${esc(a.name)})</span>`:''}</div><div class="hr">${CFG.t?`<span class="sync ${sy.st}"><i></i>${sl[sy.st]}</span>`:''}${a?`<button class="av" style="background:${a.c}" data-a="tab" data-v="set" aria-label="অ্যাকাউন্ট">${esc(a.name[0])}</button>`:''}<button class="ib" data-a="out" aria-label="লগআউট"><svg viewBox="0 0 24 24">${IC.out}</svg></button></div></header>
   ${tab==='dash'?vDash(a):tab==='today'?vToday(a):tab==='stats'?vStats(a):vSet()}
   <nav><div>${T.map(([k,l])=>`<button class="${tab===k?'on':''}" data-a="tab" data-v="${k}"><svg viewBox="0 0 24 24">${IC[k]}</svg>${l}</button>`).join('')}</div></nav>`;
 }
