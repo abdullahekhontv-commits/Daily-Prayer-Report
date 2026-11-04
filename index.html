@@ -113,10 +113,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-off
 .row.ac{width:100%;background:none;border:0;border-top:1px solid var(--ln);color:var(--ink);font-family:inherit;font-size:16px;text-align:left;padding:12px 0}.row span.av{display:grid;place-items:center;color:#fff;font-weight:700;border-radius:50%}
 
 /* Animations */
-@keyframes floatCloud { 0%{transform:translateX(0)} 100%{transform:translateX(-25px)} }
-@keyframes waveAnim { 0%{transform:translateX(0)} 100%{transform:translateX(-60px)} }
-@keyframes starBlink { 0%,100%{opacity:.3} 50%{opacity:1} }
-@keyframes sunGlow { 0%,100%{opacity:.4; transform:scale(1)} 50%{opacity:.8; transform:scale(1.1)} }
+@keyframes floatCloud { 0%{transform:translateX(0)} 100%{transform:translateX(-30px)} }
+@keyframes waveAnim { 0%{transform:translateX(0)} 100%{transform:translateX(-40px)} }
+@keyframes starBlink { 0%,100%{opacity:.2} 50%{opacity:1} }
+@keyframes sunGlow { 0%,100%{opacity:.4; transform:scale(1)} 50%{opacity:.7; transform:scale(1.1)} }
 </style>
 </head>
 <body>
@@ -229,21 +229,21 @@ function arc(now,T,sg,FB){
   const f=t=>Math.min(1,Math.max(0,(t-A)/(B-A))),P=(q,k=1)=>[+(160-130*k*Math.cos(Math.PI*q)).toFixed(1),+(172-120*k*Math.sin(Math.PI*q)).toFixed(1)],d=(B-A)*.003;
   const pa=(t1,t2)=>{const a=P(f(t1)),b=P(f(t2));return `M${a[0]} ${a[1]}A130 120 0 0 1 ${b[0]} ${b[1]}`},gc=day?'#F5C95C':'#F3E9C6';
   
-  // ডাইনামিক আকাশ ও মাঠের রঙ (Time-based nature environment)
   let sk1='#04070F', sk2='#0A1030', gr1='#091a14', gr2='#04090c', wa='#0d2b3a', mt1='#0D1C12', mt2='#0A160D';
   const h=now.getHours()+now.getMinutes()/60;
   
   if(day) {
-    if(h>=5.5 && h<7) { sk1='#FF9A6B'; sk2='#FFD5A1'; gr1='#467A47'; gr2='#2D5A31'; wa='#6AA1C7'; mt1='#5A8A5A'; mt2='#3A6A3A'; } // ভোর
-    else if(h>=7 && h<12) { sk1='#66B2FF'; sk2='#C2E2FF'; gr1='#4CAF50'; gr2='#2E7D32'; wa='#4DB8FF'; mt1='#6E9E6E'; mt2='#4A7A4A'; } // সকাল
-    else if(h>=12 && h<15.5) { sk1='#3388FF'; sk2='#80C4FF'; gr1='#66BB6A'; gr2='#388E3C'; wa='#4DB8FF'; mt1='#7AAE7A'; mt2='#558A55'; } // দুপুর
-    else if(h>=15.5 && h<17.5) { sk1='#FFB366'; sk2='#FFE0B2'; gr1='#558B2F'; gr2='#33691E'; wa='#4D94C7'; mt1='#6E8E4A'; mt2='#4A6A2A'; } // বিকেল
-    else { sk1='#FF7043'; sk2='#FFAB91'; gr1='#33691E'; gr2='#1B5E20'; wa='#3D6A9A'; mt1='#3A5A2A'; mt2='#1A3A1A'; } // সূর্যাস্ত
+    if(h>=5.5 && h<7) { sk1='#FF9A6B'; sk2='#FFD5A1'; gr1='#467A47'; gr2='#2D5A31'; wa='#6AA1C7'; mt1='#5A8A5A'; mt2='#3A6A3A'; }
+    else if(h>=7 && h<12) { sk1='#66B2FF'; sk2='#C2E2FF'; gr1='#4CAF50'; gr2='#2E7D32'; wa='#4DB8FF'; mt1='#6E9E6E'; mt2='#4A7A4A'; }
+    else if(h>=12 && h<15.5) { sk1='#3388FF'; sk2='#80C4FF'; gr1='#66BB6A'; gr2='#388E3C'; wa='#4DB8FF'; mt1='#7AAE7A'; mt2='#558A55'; }
+    else if(h>=15.5 && h<17.5) { sk1='#FFB366'; sk2='#FFE0B2'; gr1='#558B2F'; gr2='#33691E'; wa='#4D94C7'; mt1='#6E8E4A'; mt2='#4A6A2A'; }
+    else { sk1='#FF7043'; sk2='#FFAB91'; gr1='#33691E'; gr2='#1B5E20'; wa='#3D6A9A'; mt1='#3A5A2A'; mt2='#1A3A1A'; }
   } else {
-    if(h>=19 || h<4.5) { sk1='#04070F'; sk2='#0A1030'; gr1='#091A14'; gr2='#04090C'; wa='#0D2B3A'; mt1='#0D1C12'; mt2='#0A160D'; } // রাত
-    else { sk1='#1A1B41'; sk2='#2D2D6B'; gr1='#142E1A'; gr2='#091710'; wa='#15334A'; mt1='#1A2E1A'; mt2='#0F1A0F'; } // মাগরিবের পরের আঁধার
+    if(h>=19 || h<4.5) { sk1='#04070F'; sk2='#0A1030'; gr1='#091A14'; gr2='#04090C'; wa='#0D2B3A'; mt1='#0D1C12'; mt2='#0A160D'; }
+    else { sk1='#1A1B41'; sk2='#2D2D6B'; gr1='#142E1A'; gr2='#091710'; wa='#15334A'; mt1='#1A2E1A'; mt2='#0F1A0F'; }
   }
 
+  // SVG starts here
   let s=`<svg viewBox="0 0 320 226" role="img" aria-label="সূর্য ও চাঁদের অবস্থান"><defs>
     <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sk1}"/><stop offset="1" stop-color="${sk2}"/></linearGradient>
     <linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${gr1}"/><stop offset="1" stop-color="${gr2}"/></linearGradient>
@@ -254,33 +254,41 @@ function arc(now,T,sg,FB){
   </defs>
   <rect width="320" height="226" fill="url(#sk)"/>`;
   
-  // নক্ষত্র (রাতে) - অ্যানিমেটেড জ্বলজ্বল
+  // নক্ষত্র
   if(!day) s+=[[40,30],[90,60],[250,25],[285,70],[130,22],[210,50],[60,100],[270,110],[15,80],[300,90]].map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="1.2" fill="#fff" style="animation:starBlink ${2+i*0.3}s ease-in-out infinite"/>`).join('');
   
-  // মেঘ (Animation)
+  // মেঘ (Animation ঠিক করা হয়েছে)
   const clCol = day ? '#ffffff30' : '#ffffff10';
   s+=`<g style="animation:floatCloud 15s linear infinite alternate">
     <path d="M40 60 Q60 40 80 60 Q100 50 120 65 Q80 65 40 60" fill="${clCol}"/>
     <path d="M220 50 Q240 30 260 50 Q280 40 300 55 Q260 55 220 50" fill="${clCol}"/>
   </g>`;
 
-  // বাস্তবিক পাহাড় (Mountains)
-  s+=`<path d="M-10 172 L40 110 L80 130 L140 90 L200 140 L260 105 L330 172 Z" fill="url(#mt)" opacity=".95"/>`;
+  // পাহাড় (বাস্তবিক বাঁকা আকৃতি)
+  s+=`<path d="M-10 172 L40 110 Q80 80 120 125 T200 140 Q240 110 270 105 L330 172 Z" fill="url(#mt)" opacity=".95"/>`;
   
   // মাঠ (Ground)
   s+=`<rect x="0" y="172" width="320" height="54" fill="url(#gr)"/>`;
   
-  // গাছ (Trees & Bushes)
+  // গাছ (বাস্তবিক ডালপালা ও পাতা)
   s+=`<g fill="${day?'#1B4A22':'#051208'}">
-    <!-- Distant Trees -->
-    <path d="M20 172 L25 150 L30 172 Z"/><path d="M40 172 L45 155 L50 172 Z"/><path d="M280 172 L285 145 L290 172 Z"/><path d="M300 172 L305 160 L310 172 Z"/>
-    <!-- Bushes -->
-    <circle cx="70" cy="172" r="10"/><circle cx="85" cy="172" r="8"/><circle cx="250" cy="172" r="12"/>
+    <!-- Tree 1 -->
+    <rect x="25" y="145" width="4" height="27" fill="${day?'#4A3525':'#1A1005'}"/>
+    <path d="M15 145 Q27 120 39 145 Z"/><path d="M20 135 Q27 115 34 135 Z"/>
+    <!-- Tree 2 -->
+    <rect x="285" y="150" width="3" height="22" fill="${day?'#4A3525':'#1A1005'}"/>
+    <path d="M278 150 Q286 130 294 150 Z"/><path d="M282 140 Q286 125 290 140 Z"/>
+    <!-- Bushes (leaves) -->
+    <path d="M70 172 Q60 160 80 165 Q90 155 100 170 Z" opacity=".8"/>
+    <path d="M250 172 Q240 165 260 160 Q270 165 280 172 Z" opacity=".8"/>
   </g>`;
 
-  // নদী (River) with Animation
-  s+=`<g style="animation:waveAnim 5s linear infinite alternate">
-    <path d="M-60 195 Q-30 185 0 195 T60 195 T120 195 T180 195 T240 195 T300 195 T360 195 L360 226 L-60 226 Z" fill="url(#wt)"/>
+  // নদী (প্রাণবন্ত ঢেউ)
+  s+=`<g style="animation:waveAnim 4s linear infinite alternate">
+    <path d="M-40 195 Q-10 190 20 195 T80 195 T140 195 T200 195 T260 195 T320 195 T380 195 L380 226 L-40 226 Z" fill="url(#wt)"/>
+  </g>
+  <g style="animation:waveAnim 6s linear infinite alternate-reverse">
+    <path d="M-40 205 Q-10 200 20 205 T80 205 T140 205 T200 205 T260 205 T320 205 T380 205 L380 226 L-40 226 Z" fill="#ffffff1a"/>
   </g>`;
 
   s+=`<path d="M30 172A130 120 0 0 1 290 172" fill="none" stroke="#ffffff14" stroke-width="13" stroke-linecap="round"/><line x1="14" y1="172" x2="306" y2="172" stroke="#ffffff22"/>`;
@@ -298,18 +306,16 @@ function arc(now,T,sg,FB){
     s+=`<circle cx="${c[0]}" cy="${c[1]}" r="20" fill="url(#gl)"/>` + moon(c[0],c[1],11);
   }
   
-  // ৩ এবং ৪ নং ফিক্স: নামাজের সময়, শতকরা ও কত সময় বাকি একসাথে, এবং নিষিদ্ধ সময়ের লাল রেখা
+  // ওয়াক্তের রেখা (আরও স্পষ্ট)
   if(sg[0]!==undefined){
     const id=sg[0],s0=+sg[1],e0=+sg[2],x=t=>30+260*Math.min(1,Math.max(0,(t-s0)/(e0-s0))),pr=x(now);
     const pct=Math.round((pr-30)/260*100);
     const left=dr(Math.max(0,Math.round((e0-now)/MN)*MN));
     
-    // Improved Timeline Bar
-    s+=`<rect x="30" y="190" width="260" height="10" rx="5" fill="#00000050" stroke="#ffffff30" stroke-width="1"/>
+    s+=`<rect x="30" y="190" width="260" height="10" rx="5" fill="#00000060" stroke="#ffffff40" stroke-width="1"/>
         <rect x="30" y="190" width="${(pr-30).toFixed(1)}" height="10" rx="5" fill="${WC[id]}"/>`;
     FB.forEach(z=>{if(z[1]>s0&&z[0]<e0){const a=x(z[0]),b=x(z[1]);s+=`<rect x="${a.toFixed(1)}" y="188" width="${Math.max(2,b-a).toFixed(1)}" height="14" rx="4" fill="${RED}" stroke="#fff" stroke-width=".5"/>`}});
     
-    // Current Time Indicator
     s+=`<circle cx="${pr.toFixed(1)}" cy="195" r="7" fill="#fff" stroke="${WC[id]}" stroke-width="3" style="filter:drop-shadow(0 0 3px ${WC[id]})"/>
         <text x="160" y="218" text-anchor="middle" font-size="11" font-weight="700" fill="#fff" style="text-shadow:0 1px 2px #000">${id?PN[id]:'বিরতি'} · ${bn(pct)}% · ${left} বাকি</text>`;
   }
@@ -389,7 +395,6 @@ function render(){
   const a=acc(),sl={ok:'সিঙ্ক হয়েছে '+sy.msg,busy:'সিঙ্ক হচ্ছে…',err:sy.msg||'সিঙ্ক ব্যর্থ',idle:'সংযুক্ত'};
   const T=[['dash','ড্যাশবোর্ড'],['today','আজ'],['stats','পরিসংখ্যান'],['set','সেটিংস']];
   
-  // হেডার রিডিজাইন: স্মার্ট ও ইউজারনেম কাটা যাবে না
   $('#app').innerHTML=`<header>
     <div class="brand">
       <img src="icon-192.png" alt="">
