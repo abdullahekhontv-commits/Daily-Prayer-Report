@@ -80,7 +80,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-off
 .sb{display:flex;height:12px;border-radius:99px;overflow:hidden;background:var(--ln);gap:2px}.sb i{display:block}
 .sb .s1,.dot.s1,.dc.s1{background:var(--s1)}.sb .s2,.dot.s2,.dc.s2{background:var(--s2)}.sb .s3,.dot.s3,.dc.s3{background:var(--s3)}.sb .s4,.dot.s4,.dc.s4{background:var(--s4)}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%}
-.pp{padding:10px 0;border-top:1px solid var(--ln)}.pp>div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}.pp small{color:var(--mut);font-size:12px;text-align:right}
+.pp{padding:10px 0;border-top:1px solid var(--ln)}
+.pp>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px}
+.pp .ps{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:flex-end;font-size:12px;color:var(--mut);white-space:nowrap}
+.pp .ps b{color:var(--ink)}.pp .ps .dot{margin-right:2px}
 .lg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--mut);margin-bottom:10px}
 .dr{display:grid;grid-template-columns:48px repeat(5,1fr);gap:6px;align-items:center;padding:6px 0;border-top:1px solid var(--ln)}.dr.hd{border-top:0;text-align:center;color:var(--mut)}
 .dd b{display:block;line-height:1.1}.dd small{color:var(--mut);font-size:12px}
@@ -95,10 +98,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-off
 .mp{height:5px;border-radius:3px;background:var(--ln);margin-top:7px;overflow:hidden}.mp u{display:block;height:100%;border-radius:3px}
 .pill{font-size:12px;font-weight:700;padding:4px 11px;border-radius:99px;background:var(--ln);color:var(--mut)}
 .pill.p1{background:var(--s1);color:#fff}.pill.p2{background:var(--s2);color:#fff}.pill.p3{background:var(--s3);color:#fff}.pill.p4{background:var(--s4);color:#fff}
-.fl{margin-top:14px;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,#EF4D63 10%,transparent)}.fl h3{margin:0 0 6px;font-size:14px;color:var(--s4)}
-.fl div{display:flex;justify-content:space-between;gap:8px;font-size:14px;padding:3px 0}.fl span{color:var(--mut)}
+.fl{margin-top:14px}.fl h3{margin:0 0 10px;font-size:14px;color:var(--s4);font-weight:700}
+.fl-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:color-mix(in srgb,#EF4D63 6%,transparent);border-left:3px solid var(--s4);border-radius:6px;margin-bottom:8px}
+.fl-row b{font-size:14px;color:var(--ink)}.fl-row span{font-size:12px;color:var(--mut)}
 .c1{color:var(--s1)}.c2{color:var(--s2)}.c3{color:var(--s3)}.c4{color:var(--s4)}
-.pp>div.sb{margin-bottom:0}.ps{display:flex;flex-wrap:wrap;gap:4px 12px;justify-content:flex-end;font-size:12px;color:var(--mut)}.ps b{color:var(--ink)}.ps .dot{margin-right:4px}
 .pr{border-left:4px solid var(--ln)}.pr.st1{border-left-color:var(--s1)}.pr.st2{border-left-color:var(--s2)}.pr.st3{border-left-color:var(--s3)}.pr.st4{border-left-color:var(--s4)}
 .lgd{margin-right:10px;white-space:nowrap}.hero .dot{margin-right:4px}
 .endb{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:var(--ink);font-family:inherit;font-size:15px;padding:14px 16px}.endb b{flex:1}.endb small{color:var(--mut);font-size:13px}.endb .dot{margin-right:3px}
@@ -224,23 +227,18 @@ function arc(now,T,sg,FB){
     FB.forEach(z=>{if(z[1]>s0&&z[0]<e0){const a=x(z[0]),b=x(z[1]);s+=`<rect x="${a.toFixed(1)}" y="188" width="${Math.max(2,b-a).toFixed(1)}" height="12" rx="3" fill="${RED}"/>`}});
     s+=`<circle cx="${pr.toFixed(1)}" cy="194" r="6" fill="#fff" stroke="${WC[id]}" stroke-width="3"/><text x="30" y="217" font-size="11" fill="#cfe3de">${fm(new Date(s0))}</text><text x="290" y="217" text-anchor="end" font-size="11" fill="#cfe3de">${fm(new Date(e0))}</text><text x="160" y="217" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">${id?PN[id]:'বিরতি'} · ${bn(Math.round((pr-30)/260*100))}%</text>`}
   return s+'</svg>'}
-function dayStrip(now,T,N,FB){const R0=+T.fj,R1=+N.fj,x=t=>(320*(t-R0)/(R1-R0)).toFixed(1),W=[['fajr',T.fj,T.sr],['dhuhr',T.dh,T.as],['asr',T.as,T.ss],['maghrib',T.ss,T.is],['isha',T.is,N.fj]];
-  let s=`<svg viewBox="0 0 320 34" style="width:100%;display:block;margin:2px 0 6px" role="img" aria-label="দিনের ওয়াক্ত রেখা"><rect y="11" width="320" height="12" rx="6" fill="var(--ln)"/>`;
-  W.forEach(w=>s+=`<rect x="${x(w[1])}" y="11" width="${(x(w[2])-x(w[1])).toFixed(1)}" height="12" rx="3" fill="${WC[w[0]]}"/>`);
-  FB.forEach(z=>s+=`<rect x="${x(z[0])}" y="8" width="${Math.max(2,x(z[1])-x(z[0])).toFixed(1)}" height="18" rx="2" fill="${RED}"/>`);
-  if(now>=R0&&now<R1)s+=`<line x1="${x(now)}" x2="${x(now)}" y1="2" y2="32" stroke-width="2.5" stroke-linecap="round" style="stroke:var(--ink)"/>`;
-  return s+'</svg>'}
+function dayStrip(now,T,N,FB){return ''; /* ৩ নং ফিক্স: কালার বার রিমুভ করা হয়েছে */ }
 function vDash(a){
   const now=new Date(),T=ptm(0),N=ptm(1),sg=segs().find(x=>now>=x[1]&&now<x[2])||[],FB=fbs(T),fb=FB.find(f=>now>=f[0]&&now<f[1]),k=ymd(now);
   const left=sg[0]!==undefined?Math.max(0,Math.round((sg[2]-now)/MN)):0,W=[['fajr',T.fj,T.sr],['dhuhr',T.dh,T.as],['asr',T.as,T.ss],['maghrib',T.ss,T.is],['isha',T.is,N.fj]];
   let h=`<div class="card sky">${arc(now,T,sg,FB)}<div class="cw"><b>${sg[0]?GN[sg[0]]+' ওয়াক্ত চলছে':'এখন ফরজ নামাজের ওয়াক্ত নেই'}</b><span>${sg[0]?'শেষ হতে '+dr(left*MN)+' বাকি':'যোহর শুরু '+fm(T.dh)}</span>${fb?`<em>এখন নামাজের নিষিদ্ধ সময় · ${fb[2]} · ${fm(new Date(fb[1]))} পর্যন্ত</em>`:''}</div></div>
   <div class="card"><h2>আজকের ওয়াক্ত</h2>${dayStrip(now,T,N,FB)}<div class="wl">${W.map(([id,s0,e0])=>{const cur=sg[0]===id,v=a?eff(a,k,id):0;return `<div class="wr${cur?' cur':''}"><i style="background:${WC[id]}"></i><div class="wn"><b>${PN[id]}</b><small>${fm(s0)} – ${fm(e0)} · ${dr(e0-s0)}</small>${cur?`<div class="mp"><u style="width:${Math.round((now-s0)/(e0-s0)*100)}%;background:${WC[id]}"></u></div>`:''}</div>${a?`<span class="pill p${v}">${v?SL(a,v):'বাকি'}</span>`:''}</div>`}).join('')}</div>
-  <div class="fl"><h3>নিষিদ্ধ সময় (আনুমানিক)</h3>${FB.map(f=>`<div><b>${f[2]}</b><span>${fm(new Date(f[0]))} – ${fm(new Date(f[1]))} · ${dr(f[1]-f[0])}</span></div>`).join('')}</div></div>`;
+  <div class="fl"><h3>নিষিদ্ধ সময় (আনুমানিক)</h3>${FB.map(f=>`<div class="fl-row"><b>${f[2]}</b><span>${fm(new Date(f[0]))} – ${fm(new Date(f[1]))} · ${dr(f[1]-f[0])}</span></div>`).join('')}</div></div>`;
   if(!a)return h;
   const R=tally(a,per),SS=a.g==='f'?[2,3,4]:[1,2,3,4],O=[0,1,2,3,4].map(s=>PR.reduce((t,[i])=>t+R[i][s],0));
   return h+`<div class="card"><div class="chips pd">${[[7,'সপ্তাহ'],[30,'মাস'],[365,'বছর'],[0,'সর্বমোট']].map(([n,l])=>`<button class="chip${per===n?' on':''}" data-a="per" data-n="${n}">${l}</button>`).join('')}</div>
   <div class="tiles">${SS.map(s=>`<div class="tl"><b class="c${s}">${bn(pc(O,s))}%</b><span>${SL(a,s)}</span></div>`).join('')}</div>${bar(O)}</div>
-  <div class="card"><h2>ওয়াক্তভিত্তিক হার</h2>${PR.map(([i,n])=>`<div class="pp"><div><b>${n}</b><span class="ps">${SS.map(s=>`<span><i class="dot s${s}"></i>${SL(a,s)} <b>${bn(pc(R[i],s))}%</b></span>`).join('')}</span></div>${bar(R[i])}</div>`).join('')}</div>`}
+  <div class="card"><h2>ওয়াক্তভিত্তিক হার</h2>${PR.map(([i,n])=>{const c=R[i];return `<div class="pp"><div><b>${n}</b><span class="ps">${SS.map(s=>`<span><i class="dot s${s}"></i>${SL(a,s)} <b>${bn(pc(c,s))}%</b></span>`).join('')}</span></div>${bar(c)}</div>`}).join('')}</div>`}
 function vToday(a){
   if(!a)return `<div class="card"><h2>স্বাগতম</h2><p>শুরু করতে মাস্টার দিয়ে প্রবেশ করে একটি অ্যাকাউন্ট খুলুন।</p><button class="btn" data-a="tab" data-v="set">সেটিংসে যান</button></div>`;
   const k=ymd(day),isT=k===ymd(new Date()),e=a.days[k]||{p:{},x:{}},SS=a.g==='f'?[2,3,4]:[1,2,3,4],lock=!isT&&!edit;
